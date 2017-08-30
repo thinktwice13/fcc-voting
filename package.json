@@ -25,6 +25,8 @@
     "nodemon": "^1.11.0"
   },
   "scripts": {
-    "dev": "nodemon index"
+    "server": "nodemon index",
+    "client": "cd client && yarn start",
+    "dev": "concurrently \"yarn server\" \"yarn client\""
   }
 }
