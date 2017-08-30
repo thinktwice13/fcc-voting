@@ -12,7 +12,7 @@ module.exports = app => {
     "/auth/google/callback",
     passport.authenticate("google"),
     (req, res) => {
-      res.send({})
+      res.redirect("/polls")
     }
   )
 
@@ -21,6 +21,6 @@ module.exports = app => {
   })
   app.get("/api/logout", (req, res) => {
     req.logout()
-    res.send(req.user)
+    res.redirect("/")
   })
 }
