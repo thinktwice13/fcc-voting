@@ -1,6 +1,8 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { Field, FieldArray, reduxForm } from "redux-form"
+import { connect } from "react-redux"
+import * as actions from "../actions"
 
 const renderField = ({ input, label }) => (
   <div>
@@ -17,6 +19,7 @@ const renderOptions = ({ fields, meta: { touched, error } }) => {
           <Field
             key={option}
             name={option}
+            type="text"
             component={renderField}
             label={"Option " + (i + 1)}
           />
@@ -37,24 +40,28 @@ const renderOptions = ({ fields, meta: { touched, error } }) => {
   )
 }
 
-const PollNew = props => {
+let PollNew = props => {
+  const pollSubmit = poll => {
+    props.submitPoll(poll)
+  }
   return (
-    <form>
+    <form onSubmit={props.handleSubmit(pollSubmit)}>
       <h4>Title</h4>
-      <Field
-        name="pollTitle"
-        type="text"
-        component={renderField}
-        label="Title"
-      />
+      <Field name="pollTitle" type="text" component={renderField} />
       <h4>Options</h4>
       <FieldArray name="options" component={renderOptions} />
-      <a className="btn-flat red left white-text">Cancel</a>
-      <a className="btn-flat teal right white-text">Submit</a>
+      <Link to="/polls" className="btn-flat red left white-text">
+        Cancel
+      </Link>
+      <button type="submit" className="btn-flat teal right white-text">
+        Submit
+      </button>
     </form>
   )
 }
 
+PollNew = connect(null, actions)(PollNew)
+
 export default reduxForm({
-  form: "pollNewForm"
+  form: "newPollForm"
 })(PollNew)

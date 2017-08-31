@@ -4,8 +4,19 @@ module.exports = app => {
   app.post("/api/polls", (req, res) => {
     const poll = new Poll({
       ...req.body,
-      owner: req.user.id
+      owner: req.user.id,
+      options: req.body.options.map(label => {
+        return {
+          label,
+          author: req.user.id,
+          voters: []
+        }
+      })
     })
-    console.log("Poll to save: ", poll)
+
+    poll.save(err => {
+      if (err) res.status(422).send(err)
+      res.send(poll)
+    })
   })
 }
