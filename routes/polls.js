@@ -26,4 +26,12 @@ module.exports = app => {
       res.send(poll)
     })
   })
+
+  app.delete("/api/polls/:pollId", (req, res) => {
+    Poll.findByIdAndRemove(req.params.pollId, err => {
+      if (err) res.send(err)
+      //Poll deleted!
+      res.send({})
+    })
+  })
 }

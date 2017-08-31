@@ -1,5 +1,5 @@
 import axios from "axios"
-import { FETCH_USER, SUBMIT_POLL, FETCH_POLLS } from "./types"
+import { FETCH_USER, SUBMIT_POLL, FETCH_POLLS, DELETE_POLL } from "./types"
 
 export const fetchUser = () => async dispatch => {
   const res = await axios.get("/api/user")
@@ -23,5 +23,13 @@ export const fetchPolls = () => async dispatch => {
   dispatch({
     type: FETCH_POLLS,
     payload: res.data
+  })
+}
+
+export const deletePoll = pollId => async dispatch => {
+  const res = await axios.delete("/api/polls/" + pollId)
+  dispatch({
+    type: DELETE_POLL,
+    payload: pollId
   })
 }

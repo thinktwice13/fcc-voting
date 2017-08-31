@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { connect } from "react-redux"
 import * as actions from "../actions"
 import { withRouter } from "react-router-dom"
-
+import PollFilters from "./PollFilters"
 class PollList extends React.Component {
   componentDidMount() {
     this.props.fetchPolls()
@@ -13,7 +13,10 @@ class PollList extends React.Component {
     if (this.props.user) {
       return (
         <div className="fixed-action-btn">
-          <Link to="/polls/new" className="btn-floating btn-large red">
+          <Link
+            to="/polls/new"
+            className="btn-floating btn-large red waves-effect waves-light"
+          >
             <i className="large material-icons">add</i>
           </Link>
         </div>
@@ -47,7 +50,9 @@ class PollList extends React.Component {
           </div>
           <div className="card-action">
             <a href="#">Share</a>
-            <a href="#">Delete</a>
+            <a href="#" onClick={this.props.deletePoll.bind(null, poll._id)}>
+              Delete
+            </a>
           </div>
         </div>
       )
