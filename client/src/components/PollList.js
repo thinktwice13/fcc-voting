@@ -2,6 +2,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 import { connect } from "react-redux"
 import * as actions from "../actions"
+import { withRouter } from "react-router-dom"
 
 class PollList extends React.Component {
   componentDidMount() {
@@ -20,14 +21,20 @@ class PollList extends React.Component {
     }
   }
 
+  handlePollClick = pollId => {
+    this.props.history.push("/polls/view/" + pollId)
+  }
+
   pollList() {
     const polls = this.props.polls
-    console.log(polls)
-
     return polls.map(poll => {
       return (
         <div key={poll._id} className="card darken-1">
-          <div className="card-content">
+          <div
+            className="card-content"
+            onClick={this.handlePollClick.bind(null, poll._id)}
+            style={{ cursor: "pointer" }}
+          >
             <span
               className="card-title"
               style={{ fontWeight: "700", textTransform: "capitalize" }}
@@ -61,4 +68,4 @@ const mapStateToProps = ({ user, polls }) => {
   return { user, polls }
 }
 
-export default connect(mapStateToProps, actions)(PollList)
+export default connect(mapStateToProps, actions)(withRouter(PollList))
