@@ -1,3 +1,14 @@
 import React from "react"
+import { reduxForm } from "redux-form"
 
-export default () => <h2>New Poll forms here!</h2>
+class PollNew extends React.Component {
+  render() {
+    return (
+      <div>Poll New Forms</div>
+    )
+  }
+}
+
+export default reduxForm({
+  form: "pollForm"
+})(PollNew)
