@@ -1,5 +1,13 @@
 import axios from "axios"
-import { FETCH_USER, SUBMIT_POLL, FETCH_POLLS, DELETE_POLL } from "./types"
+import {
+  FETCH_USER,
+  SUBMIT_POLL,
+  FETCH_POLLS,
+  DELETE_POLL,
+  SET_FILTER,
+  SET_SORT,
+  SET_SEARCH
+} from "./types"
 
 export const fetchUser = () => async dispatch => {
   const res = await axios.get("/api/user")
@@ -31,5 +39,26 @@ export const deletePoll = pollId => async dispatch => {
   dispatch({
     type: DELETE_POLL,
     payload: pollId
+  })
+}
+
+export const setFilter = filter => dispatch => {
+  dispatch({
+    type: SET_FILTER,
+    payload: filter
+  })
+}
+
+export const setSort = direction => dispatch => {
+  dispatch({
+    type: SET_SORT,
+    payload: direction
+  })
+}
+
+export const setSearch = phrase => dispatch => {
+  dispatch({
+    type: SET_SEARCH,
+    payload: phrase
   })
 }

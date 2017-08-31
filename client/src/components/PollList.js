@@ -62,6 +62,7 @@ class PollList extends React.Component {
   render() {
     return (
       <div>
+        <PollFilters />
         {this.pollList()}
         {this.pollNewBtn()}
       </div>
