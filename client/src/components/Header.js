@@ -22,7 +22,6 @@ class Header extends React.Component {
     }
   }
   render() {
-    console.log("Props: ", this.props)
     return (
       <nav>
         <div className="nav-wrapper">
