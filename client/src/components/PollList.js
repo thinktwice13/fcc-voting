@@ -21,7 +21,30 @@ class PollList extends React.Component {
   }
 
   pollList() {
-    console.log(this.props.polls)
+    const polls = this.props.polls
+    console.log(polls)
+
+    return polls.map(poll => {
+      return (
+        <div key={poll._id} className="card darken-1">
+          <div className="card-content">
+            <span
+              className="card-title"
+              style={{ fontWeight: "700", textTransform: "capitalize" }}
+            >
+              {poll.title}
+            </span>
+            <p>{`Created on ${new Date(
+              poll.createdAt
+            ).toLocaleDateString()} by ${poll.owner}`}</p>
+          </div>
+          <div className="card-action">
+            <a href="#">Share</a>
+            <a href="#">Delete</a>
+          </div>
+        </div>
+      )
+    })
   }
 
   render() {
