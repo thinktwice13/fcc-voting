@@ -1,9 +1,16 @@
 const Poll = require("../models/Poll")
 
 module.exports = app => {
+  app.get("/api/polls", (req, res) => {
+    Poll.find({}, (err, list) => {
+      if (err) res.send(err)
+      res.send(list)
+    })
+  })
+
   app.post("/api/polls", (req, res) => {
     const poll = new Poll({
-      ...req.body,
+      title: req.body.title,
       owner: req.user.id,
       options: req.body.options.map(label => {
         return {
