@@ -9,8 +9,9 @@ export const fetchUser = () => async dispatch => {
   })
 }
 
-export const submitPoll = poll => async dispatch => {
-  const res = await axios.post("/api/polls", poll)
+export const submitPoll = (values, history) => async dispatch => {
+  const res = await axios.post("/api/polls", values)
+  history.push("/polls")
   dispatch({
     type: SUBMIT_POLL,
     payload: res.data

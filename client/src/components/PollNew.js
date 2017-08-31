@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { Field, FieldArray, reduxForm } from "redux-form"
 import { connect } from "react-redux"
 import * as actions from "../actions"
+import { withRouter } from "react-router-dom"
 
 const renderField = ({ input, label }) => (
   <div>
@@ -41,9 +42,8 @@ const renderOptions = ({ fields, meta: { touched, error } }) => {
 }
 
 let PollNew = props => {
-  const pollSubmit = poll => {
-    console.log(poll)
-    // props.submitPoll(poll)
+  const pollSubmit = formValues => {
+    props.submitPoll(formValues, props.history)
   }
   return (
     <form onSubmit={props.handleSubmit(pollSubmit)}>
@@ -61,7 +61,7 @@ let PollNew = props => {
   )
 }
 
-PollNew = connect(null, actions)(PollNew)
+PollNew = connect(null, actions)(withRouter(PollNew))
 
 export default reduxForm({
   form: "newPollForm"
