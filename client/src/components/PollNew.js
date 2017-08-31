@@ -42,12 +42,13 @@ const renderOptions = ({ fields, meta: { touched, error } }) => {
 
 let PollNew = props => {
   const pollSubmit = poll => {
-    props.submitPoll(poll)
+    console.log(poll)
+    // props.submitPoll(poll)
   }
   return (
     <form onSubmit={props.handleSubmit(pollSubmit)}>
       <h4>Title</h4>
-      <Field name="pollTitle" type="text" component={renderField} />
+      <Field name="title" type="text" component={renderField} />
       <h4>Options</h4>
       <FieldArray name="options" component={renderOptions} />
       <Link to="/polls" className="btn-flat red left white-text">
