@@ -23,6 +23,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 //must be after cookieSession and passport initialization
 require("./routes/auth")(app)
+require("./routes/polls")(app)
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"))
