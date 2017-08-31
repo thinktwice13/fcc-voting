@@ -1,8 +1,8 @@
 import { combineReducers } from "redux"
 import user from "./user"
-import pollNew from "./pollNew"
+import { reducer as pollNew } from "redux-form"
 
 export default combineReducers({
   user,
-  pollNew
+  form: pollNew
 })
