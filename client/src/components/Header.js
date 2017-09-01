@@ -1,12 +1,13 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { connect } from "react-redux"
+import Loader from "./Loader"
 
 class Header extends React.Component {
   renderContent() {
     switch (this.props.user) {
       case null:
-        return
+        return <Loader />
       case false:
         return (
           <li>

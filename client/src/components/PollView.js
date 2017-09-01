@@ -3,6 +3,7 @@ import { connect } from "react-redux"
 import * as actions from "../actions"
 import { Doughnut } from "react-chartjs-2"
 import { CHART_COLORS as backgroundColor } from "../utils/constants"
+import Loader from "./Loader"
 
 const PollOptions = ({ options }) => (
   <div>
@@ -31,7 +32,7 @@ const Chart = ({ options }) => {
 }
 
 class PollView extends React.Component {
-  componentDidMount() {
+  componentWillMount() {
     this.props.fetchDetails(this.props.match.params.id)
   }
 
@@ -43,7 +44,7 @@ class PollView extends React.Component {
     const { details } = this.props
     switch (details) {
       case null:
-        return <h3>Loading...</h3>
+        return <Loader />
       case false:
         return <h3>404 Not Found</h3>
       default:
