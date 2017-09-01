@@ -23,6 +23,23 @@ class PollView extends React.Component {
     )
   }
 }
+  renderOptions = () => {
+    const { options } = this.props.details
+    return (
+      <div className="col m6 s12">
+        {options.map(opt => (
+          <div key={opt.label}>
+            <button
+              className="btn teal wave-effect wave-light"
+              style={{ width: "100%", margin: "5px 0" }}
+            >
+              {opt.label}
+            </button>
+          </div>
+        ))}
+      </div>
+    )
+  }
   render() {
     return <div className="row">{this.renderContent()}</div>
   }
