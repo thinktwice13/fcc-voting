@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 import * as actions from "../actions"
 import { FILTER_OPTIONS } from "../utils/constants"
 
-const PollFilters = props => {
+const PollFilters = ({ setFilter }) => {
   return (
     <div>
       <div>
@@ -11,7 +11,7 @@ const PollFilters = props => {
           <button
             key={filter}
             className="btn-flat"
-            onClick={props.setFilter.bind(null, filter)}
+            onClick={setFilter.bind(null, filter)}
           >
             {filter}
           </button>
@@ -22,8 +22,4 @@ const PollFilters = props => {
   )
 }
 
-const mapStateToProps = ({ visibility }) => {
-  return { visibility }
-}
-
-export default connect(mapStateToProps, actions)(PollFilters)
+export default connect(null, actions)(PollFilters)

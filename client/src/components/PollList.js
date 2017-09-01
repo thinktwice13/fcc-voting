@@ -4,6 +4,7 @@ import { connect } from "react-redux"
 import * as actions from "../actions"
 import { withRouter } from "react-router-dom"
 import PollFilters from "./PollFilters"
+import { getFilteredList } from "../utils/helpers"
 class PollList extends React.Component {
   componentDidMount() {
     this.props.fetchPolls()
@@ -29,8 +30,11 @@ class PollList extends React.Component {
   }
 
   pollList() {
-    const { polls, userId } = this.props
-    return polls.map(poll => {
+    const { userId, polls, visibility } = this.props
+    //filter poll list by visibility settings
+    const visiblePolls = getFilteredList(userId, polls, visibility)
+
+    return visiblePolls.map(poll => {
       //determine if user is this polls's owner
       const isOwner = poll.owner === userId
       return (
@@ -74,8 +78,8 @@ class PollList extends React.Component {
   }
 }
 
-const mapStateToProps = ({ user, polls }) => {
-  return { userId: user && user._id, polls }
+const mapStateToProps = ({ user, polls, visibility }) => {
+  return { userId: user && user._id, polls, visibility }
 }
 
 export default connect(mapStateToProps, actions)(withRouter(PollList))

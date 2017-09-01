@@ -1,10 +1,20 @@
-export const getFilteredList = (list, filter) => {
-  console.log(list)
-  list = list.slice().reverse()
+import { FILTER_OPTIONS } from "./constants"
 
-  //TODO filter by buttons and fuzzy search
-  console.log(list)
-  return list
+export const getFilteredList = (userId, list, { filter, search }) => {
+  const { MY_POLLS, MY_VOTES } = FILTER_OPTIONS
+  const filteredList = list.slice()
+
+  //TOD fuzzy search filter
+  switch (filter) {
+    case MY_POLLS:
+      return filteredList.filter(poll => poll.owner === userId)
+    case MY_VOTES:
+      return filteredList.filter(
+        poll => !!poll.options.find(option => option.voters.includes(userId))
+      )
+    default:
+      return list
+  }
 }
 
 export const getNewVote = ({ options }, { userId, optionId }) => {
