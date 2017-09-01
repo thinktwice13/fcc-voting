@@ -8,8 +8,11 @@ import {
   SET_FILTER,
   SET_SORT,
   SET_SEARCH,
-  RESET_DETAILS
+  RESET_DETAILS,
+  SET_VOTE
 } from "./types"
+
+//async actions
 
 export const fetchUser = () => async dispatch => {
   const res = await axios.get("/api/user")
@@ -51,6 +54,16 @@ export const fetchDetails = pollId => async dispatch => {
     payload: res.data
   })
 }
+
+export const setVote = (optionId, userId) => dispatch => {
+  axios.put("/api/polls/vote/" + optionId)
+  dispatch({
+    type: SET_VOTE,
+    payload: { userId, optionId }
+  })
+}
+
+//UI actions
 
 export const resetDetails = () => dispatch => {
   dispatch({ type: RESET_DETAILS })

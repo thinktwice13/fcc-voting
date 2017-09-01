@@ -4,21 +4,7 @@ import * as actions from "../actions"
 import { Doughnut } from "react-chartjs-2"
 import { CHART_COLORS as backgroundColor } from "../utils/constants"
 import Loader from "./Loader"
-
-const PollOptions = ({ options }) => (
-  <div>
-    {options.map(opt => (
-      <div key={opt.label}>
-        <button
-          className="btn teal wave-effect wave-light"
-          style={{ width: "100%", margin: "5px 0" }}
-        >
-          {opt.label}
-        </button>
-      </div>
-    ))}
-  </div>
-)
+import PollOptionList from "./PollOptionList"
 
 const Chart = ({ options }) => {
   const data = {
@@ -27,7 +13,6 @@ const Chart = ({ options }) => {
       { data: options.map(opt => opt.voters.length || 0), backgroundColor }
     ]
   }
-  console.log(data)
   return <Doughnut data={data} />
 }
 
@@ -37,11 +22,12 @@ class PollView extends React.Component {
   }
 
   componentWillUnmount() {
+    //clear global state from this poll's details
     this.props.resetDetails()
   }
 
   renderContent() {
-    const { details } = this.props
+    const { details, userId } = this.props
     switch (details) {
       case null:
         return <Loader />
@@ -54,7 +40,7 @@ class PollView extends React.Component {
           <div>
             <h2>{details.title}</h2>
             <div className={"col s12 " + (isVotedOn ? "m4" : "m12")}>
-              <PollOptions options={details.options} />
+              <PollOptionList options={details.options} userId={userId} />
             </div>
             {isVotedOn && (
               <div className="col m8 s12">
@@ -71,9 +57,9 @@ class PollView extends React.Component {
   }
 }
 
-const mapStateToProps = ({ details }) => {
-  console.log(details)
-  return { details }
+const mapStateToProps = ({ user, details }) => {
+  const userId = user && user._id
+  return { userId, details }
 }
 
 export default connect(mapStateToProps, actions)(PollView)
