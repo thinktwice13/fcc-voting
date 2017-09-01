@@ -3,24 +3,31 @@ import { connect } from "react-redux"
 import * as actions from "../actions"
 
 class PollView extends React.Component {
-  renderOptions = () => {
-    return <div className="col m6">Options</div>
+  componentDidMount() {
+    this.props.fetchDetails(this.props.match.params.id)
   }
-  renderChart = () => {
-    return <div className="col m6">Chart</div>
-  }
-  render() {
+
+  renderContent() {
+    switch (this.props.details) {
+      case null:
+        return <h3>Loading...</h3>
+      case false:
+        return <h3>404 Not Found</h3>
+      default:
     return (
-      <div className="row">
+          <div>
+            <h2>{this.props.details.title}</h2>
         {this.renderOptions()}
         {this.renderChart()}
       </div>
     )
   }
 }
-
-const mapStateToProps = ({ poll }) => {
-  return { poll }
+  render() {
+    return <div className="row">{this.renderContent()}</div>
+  }
 }
 
-export default connect(mapStateToProps)(PollView)
+const mapStateToProps = ({ details }) => ({ details })
+
+export default connect(mapStateToProps, actions)(PollView)

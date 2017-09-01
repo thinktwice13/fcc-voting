@@ -3,6 +3,7 @@ import {
   FETCH_USER,
   SUBMIT_POLL,
   FETCH_POLLS,
+  FETCH_DETAILS,
   DELETE_POLL,
   SET_FILTER,
   SET_SORT,
@@ -30,6 +31,14 @@ export const fetchPolls = () => async dispatch => {
   const res = await axios.get("/api/polls")
   dispatch({
     type: FETCH_POLLS,
+    payload: res.data
+  })
+}
+
+export const fetchDetails = pollId => async dispatch => {
+  const res = await axios.get("/api/polls/view/" + pollId)
+  dispatch({
+    type: FETCH_DETAILS,
     payload: res.data
   })
 }

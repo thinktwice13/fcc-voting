@@ -27,6 +27,13 @@ module.exports = app => {
     })
   })
 
+  app.get("/api/polls/view/:pollId", (req, res) => {
+    Poll.findById(req.params.pollId, (err, poll) => {
+      if (err) res.send(err)
+      res.send(poll)
+    })
+  })
+
   app.delete("/api/polls/:pollId", (req, res) => {
     Poll.findByIdAndRemove(req.params.pollId, err => {
       if (err) res.send(err)
