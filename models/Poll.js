@@ -7,12 +7,7 @@ const OptionSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User"
   },
-  voters: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "User"
-    }
-  ]
+  voters: [String] //TODO change to ObjID
 })
 
 module.exports = mongoose.model(

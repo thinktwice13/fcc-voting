@@ -7,7 +7,8 @@ import {
   DELETE_POLL,
   SET_FILTER,
   SET_SORT,
-  SET_SEARCH
+  SET_SEARCH,
+  RESET_DETAILS
 } from "./types"
 
 export const fetchUser = () => async dispatch => {
@@ -35,6 +36,14 @@ export const fetchPolls = () => async dispatch => {
   })
 }
 
+export const deletePoll = pollId => async dispatch => {
+  const res = await axios.delete("/api/polls/" + pollId)
+  dispatch({
+    type: DELETE_POLL,
+    payload: pollId
+  })
+}
+
 export const fetchDetails = pollId => async dispatch => {
   const res = await axios.get("/api/polls/view/" + pollId)
   dispatch({
@@ -43,12 +52,8 @@ export const fetchDetails = pollId => async dispatch => {
   })
 }
 
-export const deletePoll = pollId => async dispatch => {
-  const res = await axios.delete("/api/polls/" + pollId)
-  dispatch({
-    type: DELETE_POLL,
-    payload: pollId
-  })
+export const resetDetails = () => dispatch => {
+  dispatch({ type: RESET_DETAILS })
 }
 
 export const setFilter = filter => dispatch => {
