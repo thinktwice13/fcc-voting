@@ -28,6 +28,7 @@ class PollView extends React.Component {
 
   renderContent() {
     const { details, userId } = this.props
+    console.log(userId)
     switch (details) {
       case null:
         return <Loader />
@@ -38,7 +39,14 @@ class PollView extends React.Component {
         const isVotedOn = !!details.options.find(opt => opt.voters.length)
         return (
           <div>
-            <h2>{details.title}</h2>
+            <h4
+              style={{
+                textTransform: "uppercase",
+                textAlign: "center"
+              }}
+            >
+              {details.title}
+            </h4>
             <div className={"col s12 " + (isVotedOn ? "m4" : "m12")}>
               <PollOptionList options={details.options} userId={userId} />
             </div>
@@ -58,8 +66,7 @@ class PollView extends React.Component {
 }
 
 const mapStateToProps = ({ user, details }) => {
-  const userId = user && user._id
-  return { userId, details }
+  return { userId: user && user._id, details }
 }
 
 export default connect(mapStateToProps, actions)(PollView)

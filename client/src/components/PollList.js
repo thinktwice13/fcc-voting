@@ -10,7 +10,7 @@ class PollList extends React.Component {
   }
 
   pollNewBtn() {
-    if (this.props.user) {
+    if (this.props.userId) {
       return (
         <div className="fixed-action-btn">
           <Link
@@ -29,8 +29,10 @@ class PollList extends React.Component {
   }
 
   pollList() {
-    const polls = this.props.polls
+    const { polls, userId } = this.props
     return polls.map(poll => {
+      //determine if user is this polls's owner
+      const isOwner = poll.owner === userId
       return (
         <div key={poll._id} className="card darken-1">
           <div
@@ -48,12 +50,14 @@ class PollList extends React.Component {
               poll.createdAt
             ).toLocaleDateString()} by ${poll.owner}`}</p>
           </div>
-          <div className="card-action">
-            <a href="#">Share</a>
-            <a href="#" onClick={this.props.deletePoll.bind(null, poll._id)}>
-              Delete
-            </a>
-          </div>
+          {isOwner && (
+            <div className="card-action">
+              <a href="#">Share</a>
+              <a href="#" onClick={this.props.deletePoll.bind(null, poll._id)}>
+                Delete
+              </a>
+            </div>
+          )}
         </div>
       )
     })
@@ -71,7 +75,7 @@ class PollList extends React.Component {
 }
 
 const mapStateToProps = ({ user, polls }) => {
-  return { user, polls }
+  return { userId: user && user._id, polls }
 }
 
 export default connect(mapStateToProps, actions)(withRouter(PollList))
