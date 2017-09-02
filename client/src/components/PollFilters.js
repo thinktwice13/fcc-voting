@@ -1,9 +1,7 @@
 import React from "react"
-import { connect } from "react-redux"
-import * as actions from "../actions"
 import { FILTER_OPTIONS } from "../utils/constants"
 
-const PollFilters = ({ setFilter }) => {
+export default ({ onFilterClick }) => {
   return (
     <div>
       <div>
@@ -11,7 +9,7 @@ const PollFilters = ({ setFilter }) => {
           <button
             key={filter}
             className="btn-flat"
-            onClick={setFilter.bind(null, filter)}
+            onClick={onFilterClick.bind(null, filter)}
           >
             {filter}
           </button>
@@ -21,5 +19,3 @@ const PollFilters = ({ setFilter }) => {
     </div>
   )
 }
-
-export default connect(null, actions)(PollFilters)

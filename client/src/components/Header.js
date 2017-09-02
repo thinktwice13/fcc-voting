@@ -25,7 +25,6 @@ class Header extends React.Component {
   }
 
   render() {
-    console.log("Current user ", this.props.user)
     return (
       <nav>
         <div className="nav-wrapper">

@@ -70,7 +70,7 @@ class PollList extends React.Component {
   render() {
     return (
       <div>
-        <PollFilters />
+        <PollFilters auth onFilterClick={setFilter} />
         {this.pollList()}
         {this.pollNewBtn()}
       </div>
@@ -79,7 +79,12 @@ class PollList extends React.Component {
 }
 
 const mapStateToProps = ({ user, polls, visibility }) => {
-  return { userId: user && user._id, polls, visibility }
+  return {
+    auth: user && user.auth,
+    userId: user && user._id,
+    polls,
+    visibility
+  }
 }
 
 export default connect(mapStateToProps, actions)(withRouter(PollList))
