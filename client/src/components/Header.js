@@ -5,24 +5,27 @@ import Loader from "./Loader"
 
 class Header extends React.Component {
   renderContent() {
-    switch (this.props.user) {
-      case null:
-        return <Loader />
-      case false:
-        return (
-          <li>
-            <a href="/auth/google">Login with Google</a>
-          </li>
-        )
-      default:
-        return (
-          <li>
-            <a href="/api/logout">Logout</a>
-          </li>
-        )
+    const user = this.props.user
+
+    if (!user) {
+      return
+    } else if (!user.auth) {
+      return (
+        <li>
+          <a href="/auth/google">Login with Google</a>
+        </li>
+      )
+    } else {
+      return (
+        <li>
+          <a href="/api/logout">Logout</a>
+        </li>
+      )
     }
   }
+
   render() {
+    console.log("Current user ", this.props.user)
     return (
       <nav>
         <div className="nav-wrapper">

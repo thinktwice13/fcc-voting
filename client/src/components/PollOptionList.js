@@ -4,7 +4,6 @@ import * as actions from "../actions"
 
 class PollOptionList extends React.Component {
   render() {
-    console.log(this.props.userId)
     const { userId, options, setVote } = this.props
     return (
       <div>

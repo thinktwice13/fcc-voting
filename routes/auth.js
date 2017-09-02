@@ -16,8 +16,16 @@ module.exports = app => {
     }
   )
 
-  app.get("/api/user", (req, res) => {
-    res.send(req.user)
+  app.get("/api/user", async (req, res) => {
+    //if there is no authenticated user, identify user with req headers
+    if (!req.user) {
+      //if there is no authenticated user sent qith request
+      const id = await require("./utils")(req.headers)
+      res.send({ _id: id, auth: false })
+    } else {
+      //if logged in user found
+      res.send({ _id: req.user._id, auth: true })
+    }
   })
 
   app.get("/api/logout", (req, res) => {

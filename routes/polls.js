@@ -12,6 +12,7 @@ module.exports = app => {
 
   //submit new poll
   app.post("/api/polls", (req, res) => {
+    const userId = req.user ? req.user.id : getUserHeaders()
     const poll = new Poll({
       title: req.body.title,
       owner: req.user.id,
@@ -30,7 +31,7 @@ module.exports = app => {
     })
   })
 
-  //get sigle poll details
+  //get single poll details
   app.get("/api/polls/view/:pollId", (req, res) => {
     Poll.findById(req.params.pollId, (err, poll) => {
       if (err) res.send(err)
@@ -40,17 +41,21 @@ module.exports = app => {
 
   //set new vote
   app.put("/api/polls/vote/:optionId", async (req, res) => {
+    const userId = req.user
+      ? req.user.id
+      : await require("./utils")(req.headers)
+    console.log("User voting: ", userId)
     try {
       //remove old vote
       await Poll.update(
-        { "options._id": req.params.optionId, "options.voters": req.user.id },
-        { $pull: { "options.$.voters": req.user.id } }
+        { "options._id": req.params.optionId, "options.voters": userId },
+        { $pull: { "options.$.voters": userId } }
       )
 
       //add new vote
       await Poll.update(
         { "options._id": req.params.optionId },
-        { $push: { "options.$.voters": req.user.id } }
+        { $push: { "options.$.voters": userId } }
       )
     } catch (err) {
       console.log("Error updated votes: ", err)
