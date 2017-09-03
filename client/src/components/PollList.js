@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 import * as actions from "../actions"
 import { withRouter } from "react-router-dom"
 import PollFilters from "./PollFilters"
-import { getFilteredList } from "../utils/helpers"
+import { getFilteredSortedList } from "../utils/helpers"
 class PollList extends React.Component {
   componentDidMount() {
     this.props.fetchPolls()
@@ -32,7 +32,7 @@ class PollList extends React.Component {
   pollList() {
     const { userId, polls, visibility } = this.props
     //filter poll list by visibility settings
-    const visiblePolls = getFilteredList(userId, polls, visibility)
+    const visiblePolls = getFilteredSortedList(userId, polls, visibility)
 
     return visiblePolls.map(poll => {
       //determine if user is this polls's owner
@@ -68,14 +68,15 @@ class PollList extends React.Component {
   }
 
   render() {
-    const { auth, userId, polls, setFilter, visibility } = this.props
+    const { auth, userId, polls, setFilter, setSort, visibility } = this.props
     return (
       <div>
         <PollFilters
           auth
-          onFilterClick={setFilter}
           currentFilter={visibility.filter}
+          onFilterClick={setFilter}
           currentDirection={visibility.sort}
+          onSortClick={setSort}
         />
         {auth && <Results />}
         {this.pollList()}

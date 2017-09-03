@@ -1,8 +1,12 @@
 import React from "react"
 import { FILTER_OPTIONS, SORT_OPTIONS } from "../utils/constants"
 
-export default ({ currentFilter, currentDirection, onFilterClick, onSortClick }) => {
-  console.log(currentDirection)
+export default ({
+  currentFilter,
+  onFilterClick,
+  currentDirection,
+  onSortClick
+}) => {
   return (
     <div>
       <div>
@@ -30,18 +34,16 @@ export default ({ currentFilter, currentDirection, onFilterClick, onSortClick })
 
         <ul id="sortDropdown" className="dropdown-content">
           {Object.values(SORT_OPTIONS).map(direction => {
-            //dont list current sorting option
             if (direction !== currentDirection) {
               return (
                 <li key={direction}>
-                  <a href="#!" onClick={onSortClick.bind(null, direction)}>{direction}</a>
+                  <a href="#!" onClick={onSortClick.bind(null, direction)}>
+                    {direction}
+                  </a>
                 </li>
               )
             }
           })}
-          <li>
-            <a href="#!">one</a>
-          </li>
         </ul>
       </div>
     </div>
