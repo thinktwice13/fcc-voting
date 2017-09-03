@@ -68,11 +68,18 @@ class PollList extends React.Component {
   }
 
   render() {
+    const { auth, userId, polls, setFilter, visibility } = this.props
     return (
       <div>
-        <PollFilters auth onFilterClick={setFilter} />
+        <PollFilters
+          auth
+          onFilterClick={setFilter}
+          currentFilter={visibility.filter}
+          currentDirection={visibility.sort}
+        />
+        {auth && <Results />}
         {this.pollList()}
-        {this.pollNewBtn()}
+        {auth && this.pollNewBtn()}
       </div>
     )
   }
