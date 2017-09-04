@@ -2,7 +2,8 @@ import {
   FETCH_DETAILS,
   RESET_DETAILS,
   SET_VOTE,
-  SUBMIT_OPTION
+  SUBMIT_OPTION,
+  REMOVE_OPTION
 } from "../actions/types"
 import { getUpdatedVote } from "../utils/helpers"
 
@@ -20,6 +21,14 @@ export default (state = null, action) => {
       return {
         ...state,
         options: [...state.options.slice(), action.payload]
+      }
+    case REMOVE_OPTION:
+      let options = state.options.slice()
+      const i = options.findIndex(opt => opt._id === action.payload)
+      options.splice(i, 1)
+      return {
+        ...state,
+        options
       }
     case RESET_DETAILS:
       return null

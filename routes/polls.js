@@ -55,6 +55,18 @@ module.exports = app => {
     )
   })
 
+  //remove polloption
+  app.put("/api/options/:optionId", requireLogin, (req, res) => {
+    Poll.findOneAndUpdate(
+      { "options._id": req.params.optionId },
+      { $pull: { options: { _id: req.params.optionId } } },
+      err => {
+        if (err) res.send(err)
+        res.send({})
+      }
+    )
+  })
+
   //get single poll details
   app.get("/api/polls/view/:pollId", (req, res) => {
     Poll.findById(req.params.pollId, (err, poll) => {

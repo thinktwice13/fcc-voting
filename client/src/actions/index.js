@@ -11,7 +11,8 @@ import {
   RESET_DETAILS,
   SET_VOTE,
   SUBMIT_OPTION,
-  RESET_POLL_FORM
+  RESET_POLL_FORM,
+  REMOVE_OPTION
 } from "./types"
 import { reset } from "redux-form"
 
@@ -42,6 +43,14 @@ export const submitOption = (pollId, label) => async dispatch => {
     payload: res.data
   })
   dispatch(reset("newOptionForm"))
+}
+
+export const removeOption = optionId => dispatch => {
+  const res = axios.put("/api/options/" + optionId)
+  dispatch({
+    type: REMOVE_OPTION,
+    payload: optionId
+  })
 }
 
 export const fetchPolls = () => async dispatch => {

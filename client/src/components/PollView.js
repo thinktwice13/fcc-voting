@@ -6,6 +6,7 @@ import { CHART_COLORS as backgroundColor } from "../utils/constants"
 import Loader from "./Loader"
 import PollOptionList from "./PollOptionList"
 import { submitOption } from "../actions/index"
+import { withRouter } from "react-router-dom"
 
 const Chart = ({ options }) => {
   const data = {
@@ -27,8 +28,16 @@ class PollView extends React.Component {
     this.props.resetDetails()
   }
 
+  handleOptionRemove = optionId => {
+    const { details, deletePoll, removeOption, history } = this.props
+    if (details.options.length === 1) {
+      deletePoll(details._id)
+      history.push("/polls")
+    } else removeOption(optionId)
+  }
+
   renderContent() {
-    const { details, userId, setVote, submitOption } = this.props
+    const { details, userId, setVote, submitOption, removeOption } = this.props
     const pollId = this.props.match.params.id
 
     switch (details) {
@@ -59,6 +68,7 @@ class PollView extends React.Component {
                 <PollOptionList
                   userId={userId}
                   onVote={setVote}
+                  onOptionRemove={this.handleOptionRemove}
                   options={details.options}
                   onOptionSubmit={text => submitOption(pollId, text)}
                   canAddOption={canAddOption}
@@ -84,4 +94,4 @@ const mapStateToProps = ({ user, details }) => {
   return { userId: user && user._id, details }
 }
 
-export default connect(mapStateToProps, actions)(PollView)
+export default connect(mapStateToProps, actions)(withRouter(PollView))
