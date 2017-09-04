@@ -1,0 +1,28 @@
+@import "../../node_modules/react-md/src/scss/_react-md.scss";
+
+$md-primary-color: $md-amber-500 !default;
+$md-secondary-color: $md-deep-orange-a-200 !default;
+
+@include react-md-everything;
+
+* {
+  outline: "2px solid black";
+}
+
+body {;
+  margin: 0;
+}
+
+.container {
+  max-width: 1170px;
+  margin: 0 auto;
+}
+
+.md-text-field-container {
+  width: 100%;
+  margin: 10px 0;
+}
+
+.btn-wide {
+  width: 100%;
+}

@@ -4,28 +4,17 @@ import { Field, FieldArray, reduxForm } from "redux-form"
 import { connect } from "react-redux"
 import * as actions from "../actions"
 import { withRouter } from "react-router-dom"
-
-const renderField = ({ input, label }) => (
-  <div>
-    <label>{label}</label>
-    <input {...input} />
-  </div>
-)
+import TextField from "react-md/lib/TextFields"
+import FormField from "./FormField"
+import Button from "react-md/lib/Buttons"
 
 const renderOptions = props => {
   const { fields, options, meta: { touched, error } } = props
   return (
     <div>
-      <div>
-        {fields.map((option, i) => (
-          <Field
-            key={option}
-            name={option}
-            type="text"
-            component={renderField}
-          />
-        ))}
-      </div>
+      {fields.map((option, i) => (
+        <Field key={option} name={option} type="text" component={FormField} />
+      ))}
     </div>
   )
 }
@@ -43,8 +32,8 @@ let PollNew = ({ formValues, submitPoll, history, resetPollForm }) => {
     //if all fields are empty, show only cancel button
     if (!vals) {
       return (
-        <Link to="/polls" className="btn-flat red left white-text">
-          Cancel
+        <Link to="/polls">
+          <Button raised label="Cancel" />
         </Link>
       )
     }
@@ -52,18 +41,12 @@ let PollNew = ({ formValues, submitPoll, history, resetPollForm }) => {
     if (vals) {
       return (
         <div>
-          <button
-            className="btn-flat red left white-text"
-            onClick={resetPollForm}
-          >
-            Reset
-          </button>
+          <Button raised label="Reset" onClick={resetPollForm} />
+
           {/*if title and at least two option entered, show submit button*/}
           {vals.title &&
           vals.options.length > 2 && (
-            <button type="submit" className="btn-flat teal right white-text">
-              Submit
-            </button>
+            <Button type="submit" raised label="Submit" />
           )}
         </div>
       )
@@ -72,11 +55,17 @@ let PollNew = ({ formValues, submitPoll, history, resetPollForm }) => {
 
   return (
     <form onSubmit={pollSubmit}>
-      <h4>Title</h4>
-      <Field name="title" type="text" component={renderField} />
+      <h4 className="md-display-2">Title</h4>
+      <Field
+        name="title"
+        size="title"
+        placeholder="Poll Title"
+        type="text"
+        component={FormField}
+      />
       {formValues && (
         <div>
-          <h4>Options</h4>
+          <h4 className="md-display-2">Options</h4>
           <FieldArray
             name="options"
             component={renderOptions}

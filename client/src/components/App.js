@@ -3,7 +3,7 @@ import { BrowserRouter, Route } from "react-router-dom"
 import { connect } from "react-redux"
 import * as actions from "../actions"
 import Header from "./Header"
-import PollList from "./PollList"
+import Dashboard from "./Dashboard"
 import PollNew from "./PollNew"
 import PollView from "./PollView"
 
@@ -25,7 +25,7 @@ class App extends React.Component {
               <Route
                 exact
                 path="/polls"
-                component={PollList}
+                component={Dashboard}
                 user={this.props.user}
               />
               <Route exact path="/" component={Landing} />

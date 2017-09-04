@@ -5,7 +5,8 @@ import { Provider } from "react-redux"
 import { createStore, applyMiddleware } from "redux"
 import reducers from "./reducers"
 import thunk from "redux-thunk"
-import "./static/sass/materialize.min.css"
+// import "./static/sass/materialize.min.css"
+import "./static/main.min.css"
 
 //development
 import axios from "axios"

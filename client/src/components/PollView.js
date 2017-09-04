@@ -30,17 +30,23 @@ class PollView extends React.Component {
   renderContent() {
     const { details, userId, setVote, submitOption } = this.props
     const pollId = this.props.match.params.id
+
     switch (details) {
       case null:
         return <Loader />
       case false:
-        return <h3>404 Not Found</h3>
+        return <h3 className="md-display-3">404 Not Found</h3> //FIXME
       default:
         //determine if active poll has at least one vote
         const isVotedOn = !!details.options.find(opt => opt.voters.length)
+        // non-owners can only add one option
+        const canAddOption =
+          details.owner === userId ||
+          !details.options.find(opt => opt.author === userId)
         return (
           <div>
             <h4
+              className="md-display-2"
               style={{
                 textTransform: "uppercase",
                 textAlign: "center"
@@ -48,26 +54,29 @@ class PollView extends React.Component {
             >
               {details.title}
             </h4>
-            <div className={"col s12 " + (isVotedOn ? "m4" : "m12")}>
-              <PollOptionList
-                options={details.options}
-                userId={userId}
-                onVote={setVote}
-                onOptionSubmit={text => submitOption(pollId, text)}
-              />
-            </div>
-            {isVotedOn && (
-              <div className="col m8 s12">
-                <Chart options={details.options} />
+            <div className="md-grid">
+              <div className={"md-cell--" + (isVotedOn ? "4" : "12")}>
+                <PollOptionList
+                  userId={userId}
+                  onVote={setVote}
+                  options={details.options}
+                  onOptionSubmit={text => submitOption(pollId, text)}
+                  canAddOption={canAddOption}
+                />
               </div>
-            )}
+              {isVotedOn && (
+                <div className="md-cell--8">
+                  <Chart options={details.options} />
+                </div>
+              )}
+            </div>
           </div>
         )
     }
   }
 
   render() {
-    return <div className="row">{this.renderContent()}</div>
+    return this.renderContent()
   }
 }
 

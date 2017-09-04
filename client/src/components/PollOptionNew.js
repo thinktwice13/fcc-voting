@@ -1,15 +1,8 @@
 import React from "react"
 import { Field, reduxForm, formValueSelector } from "redux-form"
 import { connect } from "react-redux"
-
-const renderField = ({ input, label }) => (
-  <div>
-    {label && <label>{label}</label>}
-    <input {...input} />
-  </div>
-)
-
-// const ItemList = formValues({ showVat: "withVat" })(MyItemizedList)
+import FormField from "./FormField"
+import Button from "react-md/lib/Buttons/Button"
 
 let PollOptionNew = props => {
   const onFormSubmit = () => {
@@ -18,16 +11,22 @@ let PollOptionNew = props => {
   }
   return (
     <form onSubmit={props.handleSubmit(onFormSubmit)}>
-      <Field
-        name="newOption"
-        type="text"
-        component={renderField}
-        label="New Option"
-      />
+      {props.canAddOption && (
+        <Field
+          name="newOption"
+          type="text"
+          component={FormField}
+          label="New Option"
+        />
+      )}
       {props.newOption && (
-        <button type="submit" className="btn teal white-text">
-          Submit
-        </button>
+        <Button
+          raised
+          primary
+          type="submit"
+          label="Submit"
+          className="btn-wide"
+        />
       )}
     </form>
   )

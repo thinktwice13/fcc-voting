@@ -2,9 +2,10 @@ import React from "react"
 import { connect } from "react-redux"
 import * as actions from "../actions"
 import PollOptionNew from "./PollOptionNew"
+import Button from "react-md/lib/Buttons/Button"
 
 export default props => {
-  const { userId, options, onVote, onOptionSubmit } = props
+  const { userId, options, onVote, onOptionSubmit, canAddOption } = props
   return (
     <div>
       {options.map(opt => {
@@ -12,17 +13,22 @@ export default props => {
         const isCurrentVote = opt.voters.includes(userId)
         return (
           <div key={opt.label}>
-            <button
+            <Button
+              raised
+              primary
               onClick={onVote.bind(null, opt._id, userId)}
+              disabled={isCurrentVote}
               style={{ margin: "5px 0" }}
-              className={"btn teal wide" + (isCurrentVote && " disabled")}
-            >
-              {opt.label}
-            </button>
+              label={opt.label}
+              className="btn-wide"
+            />
           </div>
         )
       })}
-      <PollOptionNew onOptionSubmit={onOptionSubmit} />
+      <PollOptionNew
+        onOptionSubmit={onOptionSubmit}
+        canAddOption={canAddOption}
+      />
     </div>
   )
 }
