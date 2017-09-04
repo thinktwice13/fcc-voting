@@ -9,8 +9,10 @@ import {
   SET_SORT,
   SET_SEARCH,
   RESET_DETAILS,
-  SET_VOTE
+  SET_VOTE,
+  SUBMIT_OPTION
 } from "./types"
+import { reset } from "redux-form"
 
 //async actions
 
@@ -29,6 +31,15 @@ export const submitPoll = (values, history) => async dispatch => {
     type: SUBMIT_POLL,
     payload: res.data
   })
+}
+
+export const submitOption = (pollId, label) => async dispatch => {
+  const res = await axios.put("/api/polls/" + pollId, { label })
+  dispatch({
+    type: SUBMIT_OPTION,
+    payload: res.data
+  })
+  dispatch(reset("newOptionForm"))
 }
 
 export const fetchPolls = () => async dispatch => {
@@ -56,7 +67,7 @@ export const fetchDetails = pollId => async dispatch => {
 }
 
 export const setVote = (optionId, userId) => dispatch => {
-  axios.put("/api/polls/vote/" + optionId)
+  axios.put("/api/vote/" + optionId)
   dispatch({
     type: SET_VOTE,
     payload: { userId, optionId }

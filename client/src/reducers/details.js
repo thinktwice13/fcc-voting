@@ -1,5 +1,10 @@
-import { FETCH_DETAILS, RESET_DETAILS, SET_VOTE } from "../actions/types"
-import { getNewVote } from "../utils/helpers"
+import {
+  FETCH_DETAILS,
+  RESET_DETAILS,
+  SET_VOTE,
+  SUBMIT_OPTION
+} from "../actions/types"
+import { getUpdatedVote } from "../utils/helpers"
 
 export default (state = null, action) => {
   switch (action.type) {
@@ -8,7 +13,13 @@ export default (state = null, action) => {
     case SET_VOTE:
       return {
         ...state,
-        options: getNewVote(state, action.payload)
+        options: getUpdatedVote(state, action.payload)
+      }
+    case SUBMIT_OPTION:
+      //find index of the poll to be updated
+      return {
+        ...state,
+        options: [...state.options.slice(), action.payload]
       }
     case RESET_DETAILS:
       return null

@@ -1,5 +1,4 @@
 import { FETCH_POLLS, DELETE_POLL } from "../actions/types"
-import { SET_FILTER, SET_SORT, SET_SEARCH } from "../actions/types"
 
 export default (state = [], action) => {
   switch (action.type) {

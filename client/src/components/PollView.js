@@ -5,6 +5,7 @@ import { Doughnut } from "react-chartjs-2"
 import { CHART_COLORS as backgroundColor } from "../utils/constants"
 import Loader from "./Loader"
 import PollOptionList from "./PollOptionList"
+import { submitOption } from "../actions/index"
 
 const Chart = ({ options }) => {
   const data = {
@@ -27,8 +28,8 @@ class PollView extends React.Component {
   }
 
   renderContent() {
-    const { details, userId } = this.props
-    console.log(userId)
+    const { details, userId, setVote, submitOption } = this.props
+    const pollId = this.props.match.params.id
     switch (details) {
       case null:
         return <Loader />
@@ -48,7 +49,12 @@ class PollView extends React.Component {
               {details.title}
             </h4>
             <div className={"col s12 " + (isVotedOn ? "m4" : "m12")}>
-              <PollOptionList options={details.options} userId={userId} />
+              <PollOptionList
+                options={details.options}
+                userId={userId}
+                onVote={setVote}
+                onOptionSubmit={text => submitOption(pollId, text)}
+              />
             </div>
             {isVotedOn && (
               <div className="col m8 s12">

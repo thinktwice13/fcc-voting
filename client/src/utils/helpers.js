@@ -12,7 +12,6 @@ export const getFilteredSortedList = (
   //TODO fuzzy search filter
 
   //filter list by filter buttons clicked
-
   switch (filter) {
     case MY_POLLS:
       list = list.filter(poll => poll.owner === userId)
@@ -42,7 +41,7 @@ export const getFilteredSortedList = (
   return list
 }
 
-export const getNewVote = ({ options }, { userId, optionId }) => {
+export const getUpdatedVote = ({ options }, { userId, optionId }) => {
   //determine old vote index
   const oldVote = options.findIndex(opt => opt.voters.includes(userId))
   //determinte new vote index
@@ -57,6 +56,5 @@ export const getNewVote = ({ options }, { userId, optionId }) => {
   }
   //add new vote
   updated[newVote].voters.push(userId)
-
   return updated
 }

@@ -7,7 +7,9 @@ const OptionSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User"
   },
-  voters: [String] //TODO change to ObjID
+  //TODO change to Obj
+  //TODO defautl empty array of strings
+  voters: [String]
 })
 
 module.exports = mongoose.model(

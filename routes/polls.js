@@ -31,6 +31,29 @@ module.exports = app => {
     })
   })
 
+  //submit new poll option
+  app.put("/api/polls/:pollId", requireLogin, (req, res) => {
+    //save new option to the specified poll
+    Poll.findByIdAndUpdate(
+      req.params.pollId,
+      {
+        $push: {
+          options: {
+            label: req.body.label,
+            author: req.user._id,
+            voters: []
+          }
+        }
+      },
+      { new: true },
+      (err, poll) => {
+        if (err) res.send(err)
+        const newOption = poll.options[poll.options.length - 1]
+        res.send(newOption)
+      }
+    )
+  })
+
   //get single poll details
   app.get("/api/polls/view/:pollId", (req, res) => {
     Poll.findById(req.params.pollId, (err, poll) => {
