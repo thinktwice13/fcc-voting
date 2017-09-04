@@ -1,4 +1,5 @@
 const Poll = require("../models/Poll")
+const requireLogin = require("../middleware/requireLogin")
 
 module.exports = app => {
   //fetch all polls
@@ -11,7 +12,7 @@ module.exports = app => {
   })
 
   //submit new poll
-  app.post("/api/polls", (req, res) => {
+  app.post("/api/polls", requireLogin, (req, res) => {
     const userId = req.user ? req.user.id : getUserHeaders()
     const poll = new Poll({
       title: req.body.title,
@@ -63,7 +64,7 @@ module.exports = app => {
   })
 
   //set new vote
-  app.put("/api/polls/vote/:optionId", async (req, res) => {
+  app.put("/api/vote/:optionId", async (req, res) => {
     const userId = req.user
       ? req.user.id
       : await require("./utils")(req.headers)
@@ -87,7 +88,7 @@ module.exports = app => {
   })
 
   //delete poll
-  app.delete("/api/polls/:pollId", (req, res) => {
+  app.delete("/api/polls/:pollId", requireLogin, (req, res) => {
     Poll.findByIdAndRemove(req.params.pollId, err => {
       if (err) res.send(err)
       //Poll deleted!
