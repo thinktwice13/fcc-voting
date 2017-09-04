@@ -68,8 +68,6 @@ let PollFilters = ({ filter, sort, search, setFilter, setSort, setSearch }) => {
             id="selectSortDirection"
             placeholder="SORT"
             menuItems={Object.values(SORT_OPTIONS)}
-            itemLabel="abbreviation"
-            itemValue="abbreviation"
             position={SelectField.Positions.BELOW}
             className="md-cell"
             onChange={setSort}
