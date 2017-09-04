@@ -10,7 +10,8 @@ import {
   SET_SEARCH,
   RESET_DETAILS,
   SET_VOTE,
-  SUBMIT_OPTION
+  SUBMIT_OPTION,
+  RESET_POLL_FORM
 } from "./types"
 import { reset } from "redux-form"
 
@@ -31,6 +32,7 @@ export const submitPoll = (values, history) => async dispatch => {
     type: SUBMIT_POLL,
     payload: res.data
   })
+  dispatch(reset("newPollForm"))
 }
 
 export const submitOption = (pollId, label) => async dispatch => {
@@ -78,6 +80,11 @@ export const setVote = (optionId, userId) => dispatch => {
 
 export const resetDetails = () => dispatch => {
   dispatch({ type: RESET_DETAILS })
+}
+
+export const resetPollForm = () => dispatch => {
+  dispatch({ type: RESET_POLL_FORM })
+  dispatch(reset("newPollForm"))
 }
 
 export const setFilter = filter => dispatch => {
