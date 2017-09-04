@@ -5,6 +5,8 @@ import * as actions from "../actions"
 import { withRouter } from "react-router-dom"
 import PollFilters from "./PollFilters"
 import { getFilteredSortedList } from "../utils/helpers"
+import Results from "./Results"
+
 class PollList extends React.Component {
   componentDidMount() {
     this.props.fetchPolls()
