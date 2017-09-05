@@ -1,5 +1,6 @@
 import axios from "axios"
 import {
+  LOADING,
   FETCH_USER,
   SUBMIT_POLL,
   FETCH_POLLS,
@@ -17,8 +18,10 @@ import {
 import { reset } from "redux-form"
 
 //async actions
+const load = () => dispatch => dispatch({ type: LOADING })
 
 export const fetchUser = () => async dispatch => {
+  load()
   const res = await axios.get("/api/user")
   dispatch({
     type: FETCH_USER,
@@ -27,6 +30,7 @@ export const fetchUser = () => async dispatch => {
 }
 
 export const submitPoll = (values, history) => async dispatch => {
+  load()
   const res = await axios.post("/api/polls", values)
   history.push("/polls")
   dispatch({
@@ -37,6 +41,7 @@ export const submitPoll = (values, history) => async dispatch => {
 }
 
 export const submitOption = (pollId, label) => async dispatch => {
+  load()
   const res = await axios.put("/api/polls/" + pollId, { label })
   dispatch({
     type: SUBMIT_OPTION,
@@ -46,7 +51,7 @@ export const submitOption = (pollId, label) => async dispatch => {
 }
 
 export const removeOption = optionId => dispatch => {
-  const res = axios.put("/api/options/" + optionId)
+  axios.put("/api/options/" + optionId)
   dispatch({
     type: REMOVE_OPTION,
     payload: optionId
@@ -54,6 +59,7 @@ export const removeOption = optionId => dispatch => {
 }
 
 export const fetchPolls = () => async dispatch => {
+  load()
   const res = await axios.get("/api/polls")
   dispatch({
     type: FETCH_POLLS,
@@ -61,8 +67,8 @@ export const fetchPolls = () => async dispatch => {
   })
 }
 
-export const deletePoll = pollId => async dispatch => {
-  const res = await axios.delete("/api/polls/" + pollId)
+export const deletePoll = pollId => dispatch => {
+  axios.delete("/api/polls/" + pollId)
   dispatch({
     type: DELETE_POLL,
     payload: pollId
@@ -70,6 +76,7 @@ export const deletePoll = pollId => async dispatch => {
 }
 
 export const fetchDetails = pollId => async dispatch => {
+  load()
   const res = await axios.get("/api/polls/view/" + pollId)
   dispatch({
     type: FETCH_DETAILS,

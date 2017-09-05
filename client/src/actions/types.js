@@ -1,3 +1,5 @@
+export const LOADING = "LOADING"
+
 export const FETCH_USER = "FETCH_USER"
 export const FETCH_POLLS = "FETCH_POLLS"
 export const FETCH_DETAILS = "FETCH_DETAILS"

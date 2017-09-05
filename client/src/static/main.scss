@@ -11,11 +11,43 @@ $md-secondary-color: $md-deep-orange-a-200 !default;
 
 body {;
   margin: 0;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  > * {
+    flex: 1 0 auto;;
+  }
+}
+
+header {
+  font-weight: 900;
+}
+
+.dashboard-content > *{
+  margin: 10  px 0;
+}
+
+.sticky-filters {
+  posiiton: fixed;
+  left: 0;
+  right: 0;
+}
+
+.fa-circle-o-notch {
+  cursor: default;
+  &:hover {
+    background-color: inherit;
+  }
 }
 
 .container {
   max-width: 1170px;
-  margin: 0 auto;
+  margin: 75px auto;
+}
+
+.md-toolbar--action-right{
+  display: flex;
+  align-items: center;
 }
 
 .md-text-field-container {
@@ -23,11 +55,84 @@ body {;
   margin: 10px 0;
 }
 
+.btn-list {
+  max-width: 600px;
+  margin: auto auto;
+}
+
+.flex-options {
+  list-style: none;
+  left: 0;
+  display: flex;
+  margin: 10px 5px;
+
+  .btn-hidden {
+    width: 0;
+    transition: .1s;
+    opacity: 0; /*radi skrivanja ikone dok je span width 0*/
+  }
+  &:hover .btn-hidden {
+    width: 100px;
+    opacity: 1;
+    transition: .2s;
+  }
+
+}
+
+.flex-results {
+  margin: 0 0 10px 0;
+  display: flex;
+  justify-content: center;
+  text-transform: uppercase;
+  h5 {
+    margin: 0 5px;
+  }
+}
+
+.flex-wrap {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-nowrap {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+  >* {
+  margin: 0 5px;
+  }
+
+}
+
+.md-select-field--btn {
+  // width: 100%;
+  text-align: center;
+  color: black;
+  font-weight: 500;
+}
+
+button.md-collapser--card {
+  display: none;
+}
+
+#selectSortDirectionMenu {
+  width: 100%;
+}
+
 .btn-wide {
   width: 100%;
 }
 
-.flex-options {
-  display: flex;
-  margin-top: 10px;
+input.md-text-field {
+  font-size: 18px;
+}
+input.md-text-field--title {
+  font-size: 25px;
+}
+
+.card-list > * {
+  margin: 10px 0;
 }

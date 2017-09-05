@@ -5,7 +5,6 @@ export default ({ size, input, label }) => (
   <TextField
     {...input}
     id={input.name}
-    size={10}
     customSize={size}
     lineDirection="right"
     label={label}

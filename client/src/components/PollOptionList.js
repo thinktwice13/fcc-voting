@@ -1,6 +1,4 @@
 import React from "react"
-import { connect } from "react-redux"
-import * as actions from "../actions"
 import PollOptionNew from "./PollOptionNew"
 import Button from "react-md/lib/Buttons/Button"
 
@@ -14,14 +12,26 @@ export default props => {
     onOptionRemove
   } = props
   return (
-    <div>
+    <div className="btn-list">
       {options.map(opt => {
         //disable button is this is user's current vote
         const isCurrentVote = opt.voters.includes(userId)
         //TODO users can remove options on their own polls and their custom options onother user's polls if they haven't been voted on yet
         const canRemoveOption = opt.author === userId
         return (
-          <div key={opt.label} className="flex-options">
+          <div key={opt._id} className="flex-options">
+            {canRemoveOption && (
+              <span className="btn-hidden">
+                <Button
+                  raised
+                  secondary
+                  className="btn-minimal"
+                  onClick={onOptionRemove.bind(null, opt._id)}
+                >
+                  delete
+                </Button>
+              </span>
+            )}
             <Button
               raised
               primary
@@ -30,14 +40,6 @@ export default props => {
               label={opt.label}
               className="btn-wide"
             />
-            <Button
-              flat
-              primary
-              className="btn-minimal"
-              onClick={onOptionRemove.bind(null, opt._id)}
-            >
-              delete
-            </Button>
           </div>
         )
       })}

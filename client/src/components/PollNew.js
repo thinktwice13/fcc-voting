@@ -4,7 +4,6 @@ import { Field, FieldArray, reduxForm } from "redux-form"
 import { connect } from "react-redux"
 import * as actions from "../actions"
 import { withRouter } from "react-router-dom"
-import TextField from "react-md/lib/TextFields"
 import FormField from "./FormField"
 import Button from "react-md/lib/Buttons"
 
@@ -19,7 +18,11 @@ const renderOptions = props => {
   )
 }
 
-let PollNew = ({ formValues, submitPoll, history, resetPollForm }) => {
+let PollNew = ({ auth, formValues, submitPoll, history, resetPollForm }) => {
+  if (!auth) {
+    history.push("/")
+  }
+
   const pollSubmit = ev => {
     ev.preventDefault()
     const vals = formValues
@@ -33,20 +36,25 @@ let PollNew = ({ formValues, submitPoll, history, resetPollForm }) => {
     if (!vals) {
       return (
         <Link to="/polls">
-          <Button raised label="Cancel" />
+          <Button raised primary label="Cancel" />
         </Link>
       )
     }
     //if anying entered, show reset button
     if (vals) {
       return (
-        <div>
-          <Button raised label="Reset" onClick={resetPollForm} />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between"
+          }}
+        >
+          <Button raised primary label="Reset" onClick={resetPollForm} />
 
           {/*if title and at least two option entered, show submit button*/}
           {vals.title &&
           vals.options.length > 2 && (
-            <Button type="submit" raised label="Submit" />
+            <Button secondary type="submit" raised label="Submit" />
           )}
         </div>
       )
@@ -54,7 +62,7 @@ let PollNew = ({ formValues, submitPoll, history, resetPollForm }) => {
   }
 
   return (
-    <form onSubmit={pollSubmit}>
+    <form onSubmit={pollSubmit} style={{ maxWidth: "700px", margin: "0 auto" }}>
       <h4 className="md-display-2">Title</h4>
       <Field
         name="title"
@@ -98,7 +106,8 @@ const validate = vals => {
 
 PollNew = connect(
   state => ({
-    formValues: state.form.newPollForm && state.form.newPollForm.values
+    formValues: state.form.newPollForm && state.form.newPollForm.values,
+    auth: state.user && state.user.auth
   }),
   actions
 )(withRouter(PollNew))

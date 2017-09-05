@@ -38,17 +38,23 @@ export const getFilteredSortedList = (
   switch (sort) {
     case OLDEST:
       ///FIXME
-      list.sort((a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt))
-      break
+      return list.sort(
+        (a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt)
+      )
     case NEWEST:
-      list.sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))
-    // case MOST_VOTED:
-    //FIXME create total votes property on each poll (mongo virtuals???)
+      return list.sort(
+        (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)
+      )
+      //FIXME create total votes property on each poll (mongo virtuals???)
+    case MOST_VOTED:
+      return list.sort(
+        (a, b) =>
+          b.options.reduce((r, opt) => r + opt.voters.length, 0) -
+          a.options.reduce((r, opt) => r + opt.voters.length, 0)
+      )
     default:
-      break
+      return list
   }
-
-  return list
 }
 
 export const getUpdatedVote = ({ options }, { userId, optionId }) => {

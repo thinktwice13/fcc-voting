@@ -6,6 +6,7 @@ import Header from "./Header"
 import Dashboard from "./Dashboard"
 import PollNew from "./PollNew"
 import PollView from "./PollView"
+import Footer from "./Footer"
 
 const Landing = () => <h2>Landing</h2>
 
@@ -15,10 +16,10 @@ class App extends React.Component {
   }
   render() {
     return (
-      <div>
-        <BrowserRouter>
-          <div>
-            <Header />
+      <BrowserRouter>
+        <div>
+          <Header />
+          <div className="md-toolbar-relative">
             <div className="container">
               <Route path="/polls/view/:id" component={PollView} />
               <Route path="/polls/new" component={PollNew} />
@@ -31,8 +32,9 @@ class App extends React.Component {
               <Route exact path="/" component={Landing} />
             </div>
           </div>
-        </BrowserRouter>
-      </div>
+          <Footer />
+        </div>
+      </BrowserRouter>
     )
   }
 }
