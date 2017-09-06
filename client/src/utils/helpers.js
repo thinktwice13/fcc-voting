@@ -1,13 +1,23 @@
 import { FILTER_OPTIONS, SORT_OPTIONS } from "./constants"
 import Autocomplete from "react-md/lib/Autocompletes"
 
-export const getFilteredSortedList = (
-  userId,
-  pollList,
-  { filter, sort, search }
-) => {
+const getTotalVotes = poll => {
+  return poll.options.reduce((r, opt) => r + opt.voters.length, 0)
+}
+
+const getTopVoted = poll => {
+  let top = 0
+  poll.options.forEach(opt => {
+    if (opt.voters.length >= top) {
+      top = opt.voters.length
+    }
+  })
+  return top
+}
+
+export const getVisibleList = (userId, pollList, { filter, sort, search }) => {
   const { MY_POLLS, MY_VOTES } = FILTER_OPTIONS
-  const { NEWEST, OLDEST, MOST_VOTED } = SORT_OPTIONS
+  const { NEWEST, OLDEST, MOST_VOTED, CLOSEST_VOTE } = SORT_OPTIONS
   let list = pollList.slice()
 
   //get poll titles found by fuzzy search if search phrase is not empty string
@@ -45,13 +55,15 @@ export const getFilteredSortedList = (
       return list.sort(
         (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)
       )
-      //FIXME create total votes property on each poll (mongo virtuals???)
+    //FIXME create total votes property on each poll (mongo virtuals???)
     case MOST_VOTED:
-      return list.sort(
-        (a, b) =>
-          b.options.reduce((r, opt) => r + opt.voters.length, 0) -
-          a.options.reduce((r, opt) => r + opt.voters.length, 0)
-      )
+      return list.sort((a, b) => getTotalVotes(a) - getTotalVotes(b))
+    case CLOSEST_VOTE:
+      list.sort((a, b) => {
+        return (
+          getTopVoted(a) / getTotalVotes(a) - getTopVoted(b) / getTotalVotes(b)
+        )
+      })
     default:
       return list
   }
@@ -73,4 +85,22 @@ export const getUpdatedVote = ({ options }, { userId, optionId }) => {
   //add new vote
   updated[newVote].voters.push(userId)
   return updated
+}
+
+export const getPollResults = (userId, polls) => {
+  let myVotes = 0
+  let myPolls = 0
+  let myPollVotes = 0
+
+  polls.forEach(poll => {
+    if (poll.owner === userId) {
+      myPolls++
+      myPollVotes += poll.options.reduce((r, opt) => r + opt.voters.length, 0)
+    }
+
+    if (!!poll.options.find(opt => opt.voters.includes(userId))) {
+      myVotes++
+    }
+  })
+  return { myVotes, myPolls, myPollVotes }
 }
