@@ -7,10 +7,12 @@ import CardTitle from "react-md/lib/Cards/CardTitle"
 import CardActions from "react-md/lib/Cards/CardActions"
 import { withRouter } from "react-router-dom"
 import Button from "react-md/lib/Buttons"
+import Shares from "./Shares"
 
 const PollCard = props => {
   //only show additional info and delete button to poll owners
   const isOwner = props.poll.owner === props.user._id
+
   return (
     <Card className="md-block-centered">
       <CardTitle
@@ -20,11 +22,11 @@ const PollCard = props => {
         style={{ cursor: "pointer" }}
       />
       {props.user.auth && (
-        <CardActions expander>
-          <Button flat secondary label="Share" />
+        <CardActions>
           {isOwner && (
             <Button flat label="Delete" secondary onClick={props.onDelete} />
           )}
+          <Shares />
         </CardActions>
       )}
     </Card>
