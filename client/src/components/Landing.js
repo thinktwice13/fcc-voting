@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 
 export default () => {
   return (
-    <div className="landing">
+    <div className="fullscreen landing">
       <h1 className="md-display-1">FCC VOTING APP</h1>
       <Link to="/polls">
         <Button

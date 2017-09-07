@@ -1,4 +1,6 @@
 export const LOADING = "LOADING"
+export const RESET_ME = "RESET_DETAILS"
+export const RESET_POLL_FORM = "RESET_POLL_FORM"
 
 export const FETCH_USER = "FETCH_USER"
 export const FETCH_POLLS = "FETCH_POLLS"
@@ -12,5 +14,3 @@ export const REMOVE_OPTION = "REMOVE_OPTION"
 export const SET_FILTER = "SET_FILTER"
 export const SET_SORT = "SET_SORT"
 export const SET_SEARCH = "SET_SEARCH"
-export const RESET_DETAILS = "RESET_DETAILS"
-export const RESET_POLL_FORM = "RESET_POLL_FORM"

@@ -69,35 +69,40 @@ let PollNew = ({ auth, formValues, submitPoll, history, resetPollForm }) => {
   }
 
   return (
-    <form onSubmit={pollSubmit} style={{ maxWidth: "700px", margin: "0 auto" }}>
-      <h4 className="md-display-2">Title</h4>
-      <Field
-        name="title"
-        size="title"
-        placeholder="Poll Title"
-        type="text"
-        component={FormField}
-      />
-      {formValues && (
-        <div>
-          <div className="poll-info">
-            <h5 className="md-headline">
-              More info {<span className="md-body-2">(Optional URL)</span>} :
-            </h5>
-            <Field name="info" type="text" component={FormField} />
-          </div>
+    <div className="container md-toolbar-relative">
+      <form
+        onSubmit={pollSubmit}
+        style={{ maxWidth: "700px", margin: "0 auto" }}
+      >
+        <h4 className="md-display-2">Title</h4>
+        <Field
+          name="title"
+          size="title"
+          placeholder="Poll Title"
+          type="text"
+          component={FormField}
+        />
+        {formValues && (
           <div>
-            <h4 className="md-display-2">Options</h4>
-            <FieldArray
-              name="options"
-              component={renderOptions}
-              options={formValues.options}
-            />
+            <div className="poll-info">
+              <h5 className="md-headline">
+                More info {<span className="md-body-2">(Optional URL)</span>} :
+              </h5>
+              <Field name="info" type="text" component={FormField} />
+            </div>
+            <div>
+              <h4 className="md-display-2">Options</h4>
+              <FieldArray
+                name="options"
+                component={renderOptions}
+                options={formValues.options}
+              />
+            </div>
           </div>
-        </div>
-      )}
-      {renderActionBtns()}
-    </form>
+        )}
+        {renderActionBtns()}
+      </form>
+    </div>
   )
 }
 

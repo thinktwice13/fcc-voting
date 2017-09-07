@@ -55,7 +55,7 @@ class PollView extends React.Component {
         !details.options.find(opt => opt.author === user._id))
 
     return (
-      <div className="flex-col">
+      <div className="flex-col container md-toolbar-relative">
         <h4
           className="md-text-capitalize md-text-center md-display-1 md-font-semibold"
           style={{

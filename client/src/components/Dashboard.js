@@ -7,6 +7,7 @@ import PollFilters from "./PollFilters"
 import PollList from "./PollList"
 import PollResults from "./PollResults"
 import { getPollResults } from "../utils/helpers"
+import ErrorPage from "./ErrorPage"
 
 const NewPollBtn = () => (
   <Link to="/polls/new">
@@ -25,17 +26,20 @@ class Dashboard extends React.Component {
       return null
     }
 
-    if (!this.props.polls.length) {
+    if (this.props.polls.length === 0) {
       return (
         <div>
+          <ErrorPage
+            title="No polls found :("
+            msg="Add one yourself or please try again later"
+          />
           <NewPollBtn />
-          <div>No Polls Found</div>
         </div>
       )
     }
 
     return (
-      <div>
+      <div className="container md-toolbar-relative">
         <NewPollBtn />
         <PollFilters />
         {this.props.user.auth && (
@@ -51,5 +55,6 @@ class Dashboard extends React.Component {
 }
 
 export default connect(({ user, polls }) => ({ user, polls }), {
+  load: actions.load,
   fetchPolls: actions.fetchPolls
 })(Dashboard)

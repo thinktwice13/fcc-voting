@@ -9,7 +9,7 @@ import {
   SET_FILTER,
   SET_SORT,
   SET_SEARCH,
-  RESET_DETAILS,
+  RESET_ME,
   SET_VOTE,
   SUBMIT_OPTION,
   RESET_POLL_FORM,
@@ -18,7 +18,7 @@ import {
 import { reset } from "redux-form"
 
 //async actions
-const load = () => dispatch => dispatch({ type: LOADING })
+export const load = () => dispatch => dispatch({ type: LOADING })
 
 export const fetchUser = () => async dispatch => {
   load()
@@ -32,12 +32,14 @@ export const fetchUser = () => async dispatch => {
 export const submitPoll = (values, history) => async dispatch => {
   load()
   const res = await axios.post("/api/polls", values)
-  history.push("/polls")
+  dispatch(reset("newPollForm"))
   dispatch({
     type: SUBMIT_POLL,
     payload: res.data
   })
-  dispatch(reset("newPollForm"))
+  //reset polls list view to avoid seeing 'no polls' error before fetching
+  dispatch({ type: RESET_ME })
+  history.push("/polls")
 }
 
 export const submitOption = (pollId, label) => async dispatch => {
@@ -95,7 +97,7 @@ export const setVote = (optionId, userId) => dispatch => {
 //UI actions
 
 export const resetDetails = () => dispatch => {
-  dispatch({ type: RESET_DETAILS })
+  dispatch({ type: RESET_ME })
 }
 
 export const resetPollForm = () => dispatch => {

@@ -18,19 +18,15 @@ class App extends React.Component {
       <BrowserRouter>
         <div>
           <Header />
-          <div className="md-toolbar-relative">
-            <Route exact path="/" component={Landing} />
-            <div className="container">
-              <Route path="/polls/view/:id" component={PollView} />
-              <Route path="/polls/new" component={PollNew} />
-              <Route
-                exact
-                path="/polls"
-                component={Dashboard}
-                user={this.props.user}
-              />
-            </div>
-          </div>
+          <Route exact path="/" component={Landing} />
+          <Route path="/polls/view/:id" component={PollView} />
+          <Route path="/polls/new" component={PollNew} />
+          <Route
+            exact
+            path="/polls"
+            component={Dashboard}
+            user={this.props.user}
+          />
           <Footer />
         </div>
       </BrowserRouter>

@@ -1,6 +1,6 @@
 import {
   FETCH_DETAILS,
-  RESET_DETAILS,
+  RESET_ME,
   SET_VOTE,
   SUBMIT_OPTION,
   REMOVE_OPTION
@@ -30,7 +30,7 @@ export default (state = null, action) => {
         ...state,
         options
       }
-    case RESET_DETAILS:
+    case RESET_ME:
       return null
     default:
       return state
