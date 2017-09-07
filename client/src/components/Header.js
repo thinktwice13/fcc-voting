@@ -16,7 +16,7 @@ const Header = ({ user, loading }) => {
   }
 
   const titleRedirect = () => (
-    <Link to="/polls" style={{ textDecoration: "none" }}>
+    <Link to="/" style={{ textDecoration: "none" }}>
       FCC Voting App
     </Link>
   )

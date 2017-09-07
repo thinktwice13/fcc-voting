@@ -7,8 +7,7 @@ import Dashboard from "./Dashboard"
 import PollNew from "./PollNew"
 import PollView from "./PollView"
 import Footer from "./Footer"
-
-const Landing = () => <h2>Landing</h2>
+import Landing from "./Landing"
 
 class App extends React.Component {
   componentDidMount() {
@@ -20,6 +19,7 @@ class App extends React.Component {
         <div>
           <Header />
           <div className="md-toolbar-relative">
+            <Route exact path="/" component={Landing} />
             <div className="container">
               <Route path="/polls/view/:id" component={PollView} />
               <Route path="/polls/new" component={PollNew} />
@@ -29,7 +29,6 @@ class App extends React.Component {
                 component={Dashboard}
                 user={this.props.user}
               />
-              <Route exact path="/" component={Landing} />
             </div>
           </div>
           <Footer />

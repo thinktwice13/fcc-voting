@@ -19,6 +19,29 @@ header {
   font-weight: 900;
 }
 
+.landing {
+  background-color: url("./fccVotingLanding.jpg");
+  height: 100vh;
+  background-size: cover;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h1{
+    max-wodth: 600px;
+    margin: 0 10px 20px;
+    text-align: center;
+    font-weight: 900;
+    font-size: 84px;
+    line-height: 90px;
+    color: #333;
+  }
+  button {
+    margin: 20px;
+  }
+}
+
 .dashboard-content > *{
   margin: 10  px 0;
 }
