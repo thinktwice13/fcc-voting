@@ -2,12 +2,12 @@ import React from "react"
 import { Link } from "react-router-dom"
 import { connect } from "react-redux"
 import * as actions from "../actions"
-import Button from "react-md/lib/Buttons"
+import { ErrorPage } from "./helpers"
 import PollFilters from "./PollFilters"
-import PollList from "./PollList"
 import PollResults from "./PollResults"
+import PollList from "./PollList"
+import Button from "react-md/lib/Buttons"
 import { getPollResults } from "../utils/helpers"
-import ErrorPage from "./ErrorPage"
 
 const NewPollBtn = () => (
   <Link to="/polls/new">

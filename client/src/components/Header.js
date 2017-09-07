@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { connect } from "react-redux"
 import Toolbar from "react-md/lib/Toolbars"
 import Button from "react-md/lib/Buttons"
-import Loader from "./Loader"
+import { Loader } from "./helpers"
 
 const Header = ({ user, loading }) => {
   const renderLoginBtn = () => {

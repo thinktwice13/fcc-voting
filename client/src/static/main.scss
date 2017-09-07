@@ -5,13 +5,17 @@ $md-secondary-color: $md-deep-orange-a-200 !default;
 
 @include react-md-everything;
 
-body {;
+html, body, #root, .main {
+  height: 100%;
   margin: 0;
+  padding: 0;
+}
+.main {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
-  > * {
-    flex: 1 0 auto;;
+  .content {
+    flex: 1 0 auto;
   }
 }
 
@@ -20,13 +24,15 @@ header {
 }
 
 .fullscreen {
+  position: absolute;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  width: 100%;
   .landing {
-    background-color: url("fccVotingLanding.jpg");
+    background-color: url("./fccVotingLanding.jpg");
     background-size: cover;
   }
   h1, h3 {
@@ -203,5 +209,22 @@ input.md-text-field--title {
   &.visible {
     opacity: 1;
     transition: 0s;
+  }
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  bottom: 0;
+  color: #616161;
+  > * {
+    margin: 0 5px;
+  }
+  a {
+    font-weight: 700;
+    color: inherit;
+
   }
 }

@@ -7,7 +7,7 @@ import Dashboard from "./Dashboard"
 import PollNew from "./PollNew"
 import PollView from "./PollView"
 import Footer from "./Footer"
-import Landing from "./Landing"
+import { Landing } from "./helpers"
 
 class App extends React.Component {
   componentDidMount() {
@@ -16,17 +16,19 @@ class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
-        <div>
-          <Header />
-          <Route exact path="/" component={Landing} />
-          <Route path="/polls/view/:id" component={PollView} />
-          <Route path="/polls/new" component={PollNew} />
-          <Route
-            exact
-            path="/polls"
-            component={Dashboard}
-            user={this.props.user}
-          />
+        <div className="main">
+          <div className="content">
+            <Header />
+            <Route exact path="/" component={Landing} />
+            <Route path="/polls/view/:id" component={PollView} />
+            <Route path="/polls/new" component={PollNew} />
+            <Route
+              exact
+              path="/polls"
+              component={Dashboard}
+              user={this.props.user}
+            />
+          </div>
           <Footer />
         </div>
       </BrowserRouter>
