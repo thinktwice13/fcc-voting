@@ -1,7 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
 import * as actions from "../actions"
-import { getVisibleList } from "../utils/helpers"
+import { getVisibleList, getTotalVotes } from "../utils/helpers"
 import Card from "react-md/lib/Cards/Card"
 import CardTitle from "react-md/lib/Cards/CardTitle"
 import CardActions from "react-md/lib/Cards/CardActions"
@@ -17,7 +17,12 @@ const PollCard = props => {
     <Card className="md-block-centered">
       <CardTitle
         title={props.poll.title}
-        subtitle="Card Subtitle"
+        subtitle={
+          props.user.auth &&
+          getTotalVotes(props.poll) +
+            " votes since " +
+            new Date(props.poll.createdAt).toLocaleString().split(", ")[0]
+        }
         onClick={props.onPollClick}
         style={{ cursor: "pointer" }}
       />

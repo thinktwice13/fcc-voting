@@ -1,7 +1,7 @@
 import { FILTER_OPTIONS, SORT_OPTIONS } from "./constants"
 import Autocomplete from "react-md/lib/Autocompletes"
 
-const getTotalVotes = poll => {
+export const getTotalVotes = poll => {
   return poll.options.reduce((r, opt) => r + opt.voters.length, 0)
 }
 
