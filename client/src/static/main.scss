@@ -38,6 +38,7 @@ header {
 
 .container {
   max-width: 1170px;
+  padding: 15px;
   margin: 75px auto;
 }
 
@@ -101,7 +102,6 @@ header {
   >* {
   margin: 0 5px;
   }
-
 }
 
 .md-select-field--btn {
@@ -153,4 +153,13 @@ input.md-text-field--title {
     border: none;
     border-radius: 50%;
     background-color: rgba(0,0,0,0)
+}
+
+.poll-info {
+  margin-bottom: 50px;;
+}
+
+.red-text {
+  color: #c62828;
+  font-weight: 700;
 }

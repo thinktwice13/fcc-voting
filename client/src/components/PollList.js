@@ -16,7 +16,8 @@ const PollCard = props => {
   return (
     <Card className="md-block-centered">
       <CardTitle
-        title={props.poll.title}
+      //capitalize first letter of the poll title  
+        title={props.poll.title.split("")[0].toUpperCase() + props.poll.title.slice(1)}
         subtitle={
           props.user.auth &&
           getTotalVotes(props.poll) +
@@ -30,6 +31,11 @@ const PollCard = props => {
         <CardActions>
           {isOwner && (
             <Button flat label="Delete" secondary onClick={props.onDelete} />
+          )}
+          {props.poll.infoUrl && (
+            <Button href={props.poll.infoUrl} target="_blank" icon>
+              info
+            </Button>
           )}
           <Shares title={props.poll.title} poll={props.poll._id} />
         </CardActions>

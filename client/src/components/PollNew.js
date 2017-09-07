@@ -6,6 +6,7 @@ import * as actions from "../actions"
 import { withRouter } from "react-router-dom"
 import FormField from "./FormField"
 import Button from "react-md/lib/Buttons"
+import { validateUrl } from "../utils/helpers"
 
 const renderOptions = props => {
   const { fields, options, meta: { touched, error } } = props
@@ -26,7 +27,14 @@ let PollNew = ({ auth, formValues, submitPoll, history, resetPollForm }) => {
   const pollSubmit = ev => {
     ev.preventDefault()
     const vals = formValues
-    submitPoll({ ...vals, options: vals.options.filter(val => !!val) }, history)
+    submitPoll(
+      {
+        ...vals,
+        infoUrl: (validateUrl(vals.info) && vals.info) || "",
+        options: vals.options.filter(val => !!val)
+      },
+      history
+    )
   }
 
   const renderActionBtns = () => {
@@ -51,8 +59,8 @@ let PollNew = ({ auth, formValues, submitPoll, history, resetPollForm }) => {
         >
           <Button raised primary label="Reset" onClick={resetPollForm} />
 
-          {/*if title and at least two option entered, show submit button*/}
-          {vals.title &&
+          {/* Needs title, at least two options and valid or empty info URL */}
+          {vals.options &&
           vals.options.length > 2 && (
             <Button secondary type="submit" raised label="Submit" />
           )}
@@ -73,12 +81,20 @@ let PollNew = ({ auth, formValues, submitPoll, history, resetPollForm }) => {
       />
       {formValues && (
         <div>
-          <h4 className="md-display-2">Options</h4>
-          <FieldArray
-            name="options"
-            component={renderOptions}
-            options={formValues.options}
-          />
+          <div className="poll-info">
+            <h5 className="md-headline">
+              More info {<span className="md-body-2">(Optional URL)</span>} :
+            </h5>
+            <Field name="info" type="text" component={FormField} />
+          </div>
+          <div>
+            <h4 className="md-display-2">Options</h4>
+            <FieldArray
+              name="options"
+              component={renderOptions}
+              options={formValues.options}
+            />
+          </div>
         </div>
       )}
       {renderActionBtns()}
@@ -87,21 +103,26 @@ let PollNew = ({ auth, formValues, submitPoll, history, resetPollForm }) => {
 }
 
 const validate = vals => {
+  const errors = {}
+
+  /* Only allow one empty option. If there are no empty options, create one at the end of the array */
   vals.options = vals.options || [""]
-  //alway keep one empty option field
-  if (!vals.options.includes(undefined) && !vals.options.includes("")) {
-    vals.options[vals.options.length] = ""
-  }
-  if (
-    vals.options.includes(undefined) &&
-    vals.options[vals.options.length - 1] === ""
-  ) {
-    vals.options.splice(-1)
+  const i = vals.options.findIndex(opt => !opt)
+  vals.options = vals.options.filter(opt => !!opt)
+  if (i > -1) {
+    vals.options.splice(i, 0, "")
+  } else {
+    vals.options.push("")
   }
 
-  //TODO only allow one empty option field
+  /* validate URLs in info field */
+  if (vals.info) {
+    if (!validateUrl(vals.info)) {
+      errors.info = "Invalid URL"
+    }
+  }
 
-  return vals
+  return errors
 }
 
 PollNew = connect(

@@ -17,6 +17,7 @@ module.exports = app => {
     const poll = new Poll({
       title: req.body.title,
       owner: req.user.id,
+      infoUrl: req.body.infoUrl,
       options: req.body.options.map(label => {
         return {
           label,

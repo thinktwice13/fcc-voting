@@ -8,7 +8,7 @@ const OptionSchema = new Schema({
     ref: "User"
   },
   //TODO change to Obj
-  //TODO defautl empty array of strings
+  //TODO default empty array of strings
   voters: [String]
 })
 
@@ -16,6 +16,7 @@ module.exports = mongoose.model(
   "polls",
   new Schema({
     title: String,
+    infoUrl: String,
     owner: {
       type: Schema.Types.ObjectId,
       ref: "User"
