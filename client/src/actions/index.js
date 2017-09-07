@@ -43,7 +43,7 @@ export const submitPoll = (values, history) => async dispatch => {
 }
 
 export const submitOption = (pollId, label) => async dispatch => {
-  dispatch({ type: LOADING })
+  dispatch({ type: LOADING }) 
   const res = await axios.put("/api/polls/" + pollId, { label })
   dispatch({
     type: SUBMIT_OPTION,

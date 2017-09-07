@@ -1,6 +1,6 @@
 import React from "react"
-import Button from "react-md/lib/Buttons/Button"
 import { Link } from "react-router-dom"
+import Button from "react-md/lib/Buttons/Button"
 import FontIcon from "react-md/lib/FontIcons"
 
 export const ErrorPage = ({ title, msg }) => (

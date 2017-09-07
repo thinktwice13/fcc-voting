@@ -3,11 +3,11 @@ import { BrowserRouter, Route } from "react-router-dom"
 import { connect } from "react-redux"
 import * as actions from "../actions"
 import Header from "./Header"
-import Dashboard from "./Dashboard"
-import PollNew from "./PollNew"
-import PollView from "./PollView"
-import Footer from "./Footer"
 import { Landing } from "./helpers"
+import Dashboard from "./Dashboard"
+import PollView from "./PollView"
+import PollNew from "./PollNew"
+import Footer from "./Footer"
 
 class App extends React.Component {
   componentDidMount() {

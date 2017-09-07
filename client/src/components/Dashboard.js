@@ -29,18 +29,18 @@ class Dashboard extends React.Component {
     if (this.props.polls.length === 0) {
       return (
         <div>
-          <ErrorPage
+          <ErrorPagegit 
             title="No polls found :("
             msg="Add one yourself or please try again later"
           />
-          <NewPollBtn />
+          {this.props.user.auth && <NewPollBtn />}
         </div>
       )
     }
 
     return (
       <div className="container md-toolbar-relative">
-        <NewPollBtn />
+        {this.props.user.auth && <NewPollBtn />}
         <PollFilters />
         {this.props.user.auth && (
           <PollResults

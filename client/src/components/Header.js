@@ -1,9 +1,9 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { connect } from "react-redux"
+import { Loader } from "./helpers"
 import Toolbar from "react-md/lib/Toolbars"
 import Button from "react-md/lib/Buttons"
-import { Loader } from "./helpers"
 
 const Header = ({ user, loading }) => {
   const renderLoginBtn = () => {
@@ -16,7 +16,7 @@ const Header = ({ user, loading }) => {
   }
 
   const titleRedirect = () => (
-    <Link to="/" style={{ textDecoration: "none" }}>
+    <Link to="/polls" style={{ textDecoration: "none" }}>
       FCC Voting App
     </Link>
   )
