@@ -38,10 +38,12 @@ class Dashboard extends React.Component {
       <div>
         <NewPollBtn />
         <PollFilters />
-        <PollResults
-          user={this.props.user}
-          results={getPollResults(this.props.user._id, this.props.polls)}
-        />
+        {this.props.user.auth && (
+          <PollResults
+            user={this.props.user}
+            results={getPollResults(this.props.user._id, this.props.polls)}
+          />
+        )}
         <PollList />
       </div>
     )
