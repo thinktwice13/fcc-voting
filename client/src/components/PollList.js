@@ -26,7 +26,7 @@ const PollCard = props => {
           {isOwner && (
             <Button flat label="Delete" secondary onClick={props.onDelete} />
           )}
-          <Shares />
+          <Shares title={props.poll.title} poll={props.poll._id} />
         </CardActions>
       )}
     </Card>
