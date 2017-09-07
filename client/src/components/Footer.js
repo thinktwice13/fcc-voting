@@ -10,9 +10,13 @@ export default () => (
       target="_blank"
     />
     <div>
-      {"Created by MARIO K for "}
+      {"Created by thinktwice13 for "}
       <span>
-        <a href="https://www.freecodecamp.org/" target="_blank">
+        <a
+          href="https://www.freecodecamp.org/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           freeCodeCamp
         </a>
       </span>

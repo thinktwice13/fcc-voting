@@ -55,9 +55,9 @@ class PollView extends React.Component {
         !details.options.find(opt => opt.author === user._id))
 
     return (
-      <div className="flex-col container md-toolbar-relative">
+      <div className="flex-col container">
         <h4
-          className="md-text-capitalize md-text-center md-display-1 md-font-semibold"
+          className="md-text-capitalize md-text-center md-display-1 md-toolbar-relative md-font-semibold"
           style={{
             textTransform: "uppercase",
             textAlign: "center"

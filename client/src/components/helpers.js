@@ -2,37 +2,30 @@ import React from "react"
 import { Link } from "react-router-dom"
 import Button from "react-md/lib/Buttons/Button"
 import FontIcon from "react-md/lib/FontIcons"
+import Paper from "react-md/lib/Papers"
 
 export const ErrorPage = ({ title, msg }) => (
   <div className="fullscreen error">
-    <h3>{title}</h3>
-    <p className="md-subheading-2 md-font-medium">{msg.toUpperCase()}</p>
+      <h2>{title}</h2>
+      <p>{msg.toUpperCase()}</p>
   </div>
 )
 
-export const Landing = () => {
-  return (
-    <div className="fullscreen landing">
-      <h1 className="md-display-1">FCC VOTING APP</h1>
+export const Landing = () => (
+  <div className="fullscreen landing">
+    <Paper zDepth={4}>
+      <h1>FCC VOTING APP</h1>
       <Link to="/polls">
-        <Button
-          primary
-          raised
-          size={50}
-          label="get started"
-          className="btn-big"
-        />
+        <Button primary raised label="get started" />
       </Link>
-    </div>
-  )
-}
+    </Paper>
+  </div>
+)
 
-export const Loader = ({ visible }) => {
-  return (
-    <FontIcon
-      className={"loader " + (visible ? "visible" : "hidden")}
-      iconClassName="fa fa-circle-o-notch fa-spin"
-      style={{ color: "white" }}
-    />
-  )
-}
+export const Loader = ({ visible }) => (
+  <FontIcon
+    className={"loader " + (visible ? "visible" : "hidden")}
+    iconClassName="fa fa-circle-o-notch fa-spin"
+    style={{ color: "white" }}
+  />
+)

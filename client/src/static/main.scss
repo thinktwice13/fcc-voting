@@ -1,8 +1,4 @@
-@import "../../node_modules/react-md/src/scss/_react-md.scss";
-
-$md-primary-color: $md-amber-500 !default;
-$md-secondary-color: $md-deep-orange-a-200 !default;
-
+@import 'globals';
 @include react-md-everything;
 
 html, body, #root, .main {
@@ -10,6 +6,7 @@ html, body, #root, .main {
   margin: 0;
   padding: 0;
 }
+
 .main {
   display: flex;
   min-height: 100vh;
@@ -19,49 +16,61 @@ html, body, #root, .main {
   }
 }
 
-header {
-  font-weight: 900;
-}
-
 .fullscreen {
   position: absolute;
+  left:0;
+  right: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  width: 100%;
-  .landing {
-    background-color: url("./fccVotingLanding.jpg");
+  text-align: center;
+  color: rgba(0,0,0,0.75);
+  &.landing {
+    // z-index:0;
+    background-image: url("./fccVotingLanding.jpg");
     background-size: cover;
   }
-  h1, h3 {
-    max-wodth: 600px;
-    margin: 0 10px 20px;
+  .md-paper {
+    background-color: white;
+    padding: 15px;
+    margin: 15px;
+  }
+  h1, h2 {
+    max-width: 600px;
+    padding: 0 10px 20px;
     text-align: center;
-    color: #333;
+    cursor: default;
   }
   h1 {
     font-weight: 900;
-    font-size: 84px;
-    line-height: 90px;
+    font-size: 72px;
+    line-height: 80px;
+    color: #00a1b3;
   }
-  h3 {
-    font-weight: 700;
-    font-size: 64px;
-    line-height: 72px;
+  h2 {
+    font-weight: 600;
+    font-size: 60px;
+    line-height: 68px;
+  }
+  p {
+    font-size: 18px;
   }
   button {
     margin: 20px;
   }
 }
 
-.dashboard-content > *{
-  margin: 10  px 0;
+// .dashboard-content > *{
+//   margin: 10  px 0;
+// }
+
+.card-list > * {
+  margin: 10px 0;
 }
 
 .sticky-filters {
-  posiiton: fixed;
   left: 0;
   right: 0;
 }
@@ -76,7 +85,7 @@ header {
 .container {
   max-width: 1170px;
   padding: 15px;
-  margin: 75px auto;
+  margin: 0  auto;
 }
 
 .md-toolbar--action-right{
@@ -142,14 +151,13 @@ header {
 }
 
 .md-select-field--btn {
-  // width: 100%;
   text-align: center;
   color: black;
   font-weight: 500;
 }
 
-button.md-collapser--card {
-  display: none;
+button.md-btn.md-background-secondary {
+  color: rgba(0,0,0,0.54);
 }
 
 #selectSortDirectionMenu {
@@ -161,15 +169,14 @@ button.md-collapser--card {
 }
 
 input.md-text-field {
-  font-size: 18px;
+  font-size: 22px;
 }
 input.md-text-field--title {
   font-size: 25px;
+  font-weight: 600;
 }
 
-.card-list > * {
-  margin: 10px 0;
-}
+
 
 .shares {
   .hidden {
@@ -204,7 +211,7 @@ input.md-text-field--title {
 .loader {
   &.hidden {
     opacity: 0;
-    transition: 1s;
+    transition: .3s;
   }
   &.visible {
     opacity: 1;
@@ -213,18 +220,24 @@ input.md-text-field--title {
 }
 
 .footer {
+  z-index: 5;
   display: flex;
   align-items: center;
   justify-content: center;
   align-content: center;
   bottom: 0;
-  color: #616161;
+  color: rgba(0,0,0,0.75);
+  font-weight: 500;
   > * {
     margin: 0 5px;
   }
   a {
     font-weight: 700;
     color: inherit;
-
+    text-decoration: none;
   }
+}
+
+.md-headline {
+  color: rgba(0,0,0,0.54)
 }
