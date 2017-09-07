@@ -57,7 +57,7 @@ export const getVisibleList = (userId, pollList, { filter, sort, search }) => {
       )
     //FIXME create total votes property on each poll (mongo virtuals???)
     case MOST_VOTED:
-      return list.sort((a, b) => getTotalVotes(a) - getTotalVotes(b))
+      return list.sort((a, b) => getTotalVotes(b) - getTotalVotes(a))
     case CLOSEST_VOTE:
       list.sort((a, b) => {
         return (
