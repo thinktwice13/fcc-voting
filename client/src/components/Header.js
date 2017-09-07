@@ -20,13 +20,12 @@ const Header = ({ user, loading }) => {
       FCC Voting App
     </Link>
   )
-  console.log("Loading is:", loading)
   return (
     <Toolbar
       fixed
       colored
       title={titleRedirect()}
-      actions={[loading ? <Loader /> : null, renderLoginBtn()]}
+      actions={[<Loader visible={loading} />, renderLoginBtn()]}
     />
   )
 }

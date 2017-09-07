@@ -1,6 +1,8 @@
 import axios from "axios"
+import { reset } from "redux-form"
 import {
   LOADING,
+  SUCCESS,
   FETCH_USER,
   SUBMIT_POLL,
   FETCH_POLLS,
@@ -15,13 +17,11 @@ import {
   RESET_POLL_FORM,
   REMOVE_OPTION
 } from "./types"
-import { reset } from "redux-form"
 
-//async actions
-export const load = () => dispatch => dispatch({ type: LOADING })
+//TODO handle errors!!!!!!!!!
 
 export const fetchUser = () => async dispatch => {
-  load()
+  dispatch({ type: LOADING })
   const res = await axios.get("/api/user")
   dispatch({
     type: FETCH_USER,
@@ -30,7 +30,7 @@ export const fetchUser = () => async dispatch => {
 }
 
 export const submitPoll = (values, history) => async dispatch => {
-  load()
+  dispatch({ type: LOADING })
   const res = await axios.post("/api/polls", values)
   dispatch(reset("newPollForm"))
   dispatch({
@@ -43,7 +43,7 @@ export const submitPoll = (values, history) => async dispatch => {
 }
 
 export const submitOption = (pollId, label) => async dispatch => {
-  load()
+  dispatch({ type: LOADING })
   const res = await axios.put("/api/polls/" + pollId, { label })
   dispatch({
     type: SUBMIT_OPTION,
@@ -52,16 +52,19 @@ export const submitOption = (pollId, label) => async dispatch => {
   dispatch(reset("newOptionForm"))
 }
 
-export const removeOption = optionId => dispatch => {
-  axios.put("/api/options/" + optionId)
+export const removeOption = optionId => async dispatch => {
   dispatch({
     type: REMOVE_OPTION,
     payload: optionId
   })
+
+  dispatch({ type: LOADING })
+  const res = await axios.put("/api/options/" + optionId)
+  !res.error ? dispatch({ type: SUCCESS }) : null
 }
 
 export const fetchPolls = () => async dispatch => {
-  load()
+  dispatch({ type: LOADING })
   const res = await axios.get("/api/polls")
   dispatch({
     type: FETCH_POLLS,
@@ -69,16 +72,19 @@ export const fetchPolls = () => async dispatch => {
   })
 }
 
-export const deletePoll = pollId => dispatch => {
-  axios.delete("/api/polls/" + pollId)
+export const deletePoll = pollId => async dispatch => {
   dispatch({
     type: DELETE_POLL,
     payload: pollId
   })
+
+  dispatch({ type: LOADING })
+  const res = await axios.delete("/api/polls/" + pollId)
+  !res.error ? dispatch({ type: SUCCESS }) : null
 }
 
 export const fetchDetails = pollId => async dispatch => {
-  load()
+  dispatch({ type: LOADING })
   const res = await axios.get("/api/polls/view/" + pollId)
   dispatch({
     type: FETCH_DETAILS,
@@ -86,12 +92,15 @@ export const fetchDetails = pollId => async dispatch => {
   })
 }
 
-export const setVote = (optionId, userId) => dispatch => {
-  axios.put("/api/vote/" + optionId)
+export const setVote = (optionId, userId) => async dispatch => {
   dispatch({
     type: SET_VOTE,
     payload: { userId, optionId }
   })
+
+  dispatch({ type: LOADING })
+  const res = await axios.put("/api/vote/" + optionId)
+  !res.error ? dispatch({ type: SUCCESS }) : null
 }
 
 //UI actions

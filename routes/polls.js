@@ -84,7 +84,6 @@ module.exports = app => {
     const userId = req.user
       ? req.user.id
       : await require("./utils")(req.headers)
-    console.log("User voting: ", userId)
     try {
       //remove old vote
       await Poll.update(

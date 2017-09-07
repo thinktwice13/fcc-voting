@@ -55,6 +55,5 @@ class Dashboard extends React.Component {
 }
 
 export default connect(({ user, polls }) => ({ user, polls }), {
-  load: actions.load,
   fetchPolls: actions.fetchPolls
 })(Dashboard)

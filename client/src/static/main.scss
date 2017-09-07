@@ -194,3 +194,14 @@ input.md-text-field--title {
   color: #c62828;
   font-weight: 700;
 }
+
+.loader {
+  &.hidden {
+    opacity: 0;
+    transition: 1s;
+  }
+  &.visible {
+    opacity: 1;
+    transition: 0s;
+  }
+}
