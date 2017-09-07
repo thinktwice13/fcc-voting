@@ -23,7 +23,6 @@ let PollOptionNew = props => (
         primary
         type="submit"
         label="Submit"
-        className="btn-wide"
       />
     )}
   </form>

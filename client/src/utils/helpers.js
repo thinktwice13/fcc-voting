@@ -59,7 +59,7 @@ export const getVisibleList = (userId, pollList, { filter, sort, search }) => {
     case MOST_VOTED:
       return list.sort((a, b) => getTotalVotes(b) - getTotalVotes(a))
     case CLOSEST_VOTE:
-      list.sort((a, b) => {
+      return list.sort((a, b) => {
         return (
           getTopVoted(a) / getTotalVotes(a) - getTopVoted(b) / getTotalVotes(b)
         )
@@ -106,7 +106,7 @@ export const getPollResults = (userId, polls) => {
 }
 
 export const validateUrl = url => {
-  const re = /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/
+  const re = /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/
 
   return re.test(url)
 }

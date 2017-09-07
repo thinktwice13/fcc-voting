@@ -17,7 +17,7 @@ const PollCard = props => {
     <Card className="md-block-centered">
       <CardTitle
       //capitalize first letter of the poll title  
-        title={props.poll.title.split("")[0].toUpperCase() + props.poll.title.slice(1)}
+        title={props.poll.title}
         subtitle={
           props.user.auth &&
           getTotalVotes(props.poll) +

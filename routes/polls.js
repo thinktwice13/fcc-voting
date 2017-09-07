@@ -14,8 +14,11 @@ module.exports = app => {
   //submit new poll
   app.post("/api/polls", requireLogin, (req, res) => {
     const userId = req.user ? req.user.id : getUserHeaders()
+    //cpitalize first letter of the poll title
+    let title = req.body.title
+    title = title.split("")[0].toUpperCase() + title.slice(1)
     const poll = new Poll({
-      title: req.body.title,
+      title,
       owner: req.user.id,
       infoUrl: req.body.infoUrl,
       options: req.body.options.map(label => {

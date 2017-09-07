@@ -8,8 +8,7 @@ import FormField from "./FormField"
 import Button from "react-md/lib/Buttons"
 import { validateUrl } from "../utils/helpers"
 
-const renderOptions = props => {
-  const { fields, options, meta: { touched, error } } = props
+const renderOptions = ({ fields }) => {
   return (
     <div>
       {fields.map((option, i) => (

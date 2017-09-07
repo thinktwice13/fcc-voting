@@ -3,7 +3,6 @@ import { connect } from "react-redux"
 import * as actions from "../actions"
 import { Doughnut } from "react-chartjs-2"
 import { CHART_COLORS as backgroundColor } from "../utils/constants"
-import Loader from "./Loader"
 import PollOptionList from "./PollOptionList"
 import { withRouter } from "react-router-dom"
 

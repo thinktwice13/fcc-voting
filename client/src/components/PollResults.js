@@ -8,8 +8,7 @@ export default ({ results }) => (
     <Button
       flat
       disabled
-      disabled
-      label={"MY POLLS VOTES: " + results.myPollVotes}
+      label={"POLLS VOTED: " + results.myPollVotes}
     />
   </div>
 )
