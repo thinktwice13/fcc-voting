@@ -55,7 +55,7 @@ class PollView extends React.Component {
         !details.options.find(opt => opt.author === user._id))
 
     return (
-      <div className="flex-col container">
+      <div className="container">
         <h4
           className="md-text-capitalize md-text-center md-display-1 md-toolbar-relative md-font-semibold"
           style={{
@@ -65,7 +65,7 @@ class PollView extends React.Component {
         >
           {details.title}
         </h4>
-        <div className="md-grid">
+        <div className="md-grid poll-view">
           <div className={"md-cell--" + (isVotedOn ? "4" : "12")}>
             <PollOptionList
               userId={user._id}

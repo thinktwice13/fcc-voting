@@ -10,15 +10,19 @@ const FilterBtns = ({ filter, onFilter }) => (
   <div className="flex-nowrap">
     {Object.values(FILTER_OPTIONS).map(label => {
       const active = filter === label
+      const icon = label === FILTER_OPTIONS.SHOW_ALL
       return (
         <Button
           key={label}
-          label={label}
           onClick={() => onFilter(label)}
-          flat={!active}
-          raised={active}
-          disabled={active}
-        />
+          label={!icon && label}
+          icon={icon}
+          raised={!icon}
+          primary={!icon && label === FILTER_OPTIONS.VOTE}
+          disabled={!icon && active}
+        >
+          {icon && "clear_all"}
+        </Button>
       )
     })}
   </div>
@@ -42,6 +46,7 @@ const SearchInput = props => (
     placeholder="Search Polls"
     className="md-cell md-cell--right"
     onChange={props.onSearch}
+    value={props.value}
   />
 )
 
@@ -54,16 +59,17 @@ const PollFilters = props => {
       )}
       <div className="flex-nowrap">
         <SortBtn sort={props.sort} onSort={props.setSort} />
-        <SearchInput onSearch={props.setSearch} />
+        <SearchInput onSearch={props.setSearch} value={props.search} />
       </div>
     </div>
   )
 }
 
-const mapStateToProps = ({ user, visibility: { filter, sort } }) => ({
+const mapStateToProps = ({ user, visibility: { filter, sort, search } }) => ({
   auth: user.auth,
   filter,
-  sort
+  sort,
+  search
 })
 
 export default connect(mapStateToProps, actions)(PollFilters)

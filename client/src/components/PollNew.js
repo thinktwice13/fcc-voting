@@ -34,8 +34,6 @@ const renderOptions = ({ fields }) => {
 let PollNew = ({ auth, formValues, submitPoll, history, resetPollForm }) => {
   //TODO use redux validation instead
   const vals = formValues
-  //anything entered turns cancel button into reset button
-  const showReset = vals
   //valid title makes the rest of the poll visible
   const validTitle =
     vals && vals.title && vals.title.length > 0 && vals.title.length <= 56
@@ -51,7 +49,7 @@ let PollNew = ({ auth, formValues, submitPoll, history, resetPollForm }) => {
     submitPoll(
       {
         ...vals,
-        infoUrl: (validateUrl(vals.info) && vals.info) || "",
+        infoUrl: (!validateUrl(vals.info) && vals.info) || "",
         options: vals.options.filter(val => !!val)
       },
       history

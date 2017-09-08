@@ -22,7 +22,6 @@ export default ({
   label,
   meta: { visited, touched, error, warning }
 }) => {
-  console.log(visited, touched, error, warning)
   const formAlert = <FormInfo error={error} warning={warning} />
   return (
     <div>

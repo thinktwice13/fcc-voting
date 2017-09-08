@@ -1,7 +1,8 @@
 export const FILTER_OPTIONS = {
   SHOW_ALL: "SHOW ALL",
   MY_POLLS: "MY POLLS",
-  MY_VOTES: "MY VOTES"
+  MY_VOTES: "MY VOTES",
+  VOTE: "VOTE!"
 }
 
 export const SORT_OPTIONS = {

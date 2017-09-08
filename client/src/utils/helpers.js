@@ -16,7 +16,7 @@ const getTopVoted = poll => {
 }
 
 export const getVisibleList = (userId, pollList, { filter, sort, search }) => {
-  const { MY_POLLS, MY_VOTES } = FILTER_OPTIONS
+  const { MY_POLLS, MY_VOTES, VOTE } = FILTER_OPTIONS
   const { NEWEST, OLDEST, MOST_VOTED, CLOSEST_VOTE } = SORT_OPTIONS
   let list = pollList.slice()
 
@@ -38,7 +38,12 @@ export const getVisibleList = (userId, pollList, { filter, sort, search }) => {
       case MY_VOTES:
         return (
           searched &&
-          poll.options.find(option => option.voters.includes(userId))
+          poll.options.find(option => !!option.voters.includes(userId))
+        )
+      case VOTE:
+        return (
+          searched &&
+          !poll.options.find(option => !!option.voters.includes(userId))
         )
       default:
         return searched

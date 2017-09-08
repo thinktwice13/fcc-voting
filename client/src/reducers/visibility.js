@@ -12,7 +12,8 @@ export default (state = defaultVisibility, action) => {
     case SET_FILTER:
       return {
         ...state,
-        filter: action.payload
+        filter: action.payload,
+        search: action.payload === FILTER_OPTIONS.SHOW_ALL ? "" : state.search
       }
     case SET_SORT:
       return {

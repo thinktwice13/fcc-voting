@@ -34,5 +34,5 @@ export const validateOption = (val, allVals, { optionLabels }) => {
 export const validateUrl = url => {
   const re = /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/
 
-  return re.test(url) ? undefined : "Invalid URL"
+  return re.test(url) || !url ? undefined : "Invalid URL"
 }

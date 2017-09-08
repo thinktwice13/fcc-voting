@@ -68,7 +68,7 @@ export default class extends React.Component {
             <i className="md-icon fa fa-get-pocket" />
           </PocketButton>
 
-          <EmailButton
+          {/*<EmailButton
             url={url}
             type="button"
             className="md-inline-block md-btn md-btn--icon md-pointer--hover"
@@ -77,7 +77,7 @@ export default class extends React.Component {
               <span aria-hidden="true" />
             </div>
             <i className="md-icon fa fa-envelope" />
-          </EmailButton>
+          </EmailButton>*/}
         </span>
       </div>
     )

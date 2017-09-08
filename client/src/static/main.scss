@@ -7,6 +7,10 @@ html, body, #root, .main {
   padding: 0;
 }
 
+html {
+  overflow-y: scroll;
+}
+
 .main {
   display: flex;
   min-height: 100vh;
@@ -26,7 +30,6 @@ html, body, #root, .main {
   align-items: center;
   height: 100vh;
   text-align: center;
-  color: rgba(0,0,0,0.75);
   &.landing {
     // z-index:0;
     background-image: url("./fccVotingLanding.jpg");
@@ -37,11 +40,12 @@ html, body, #root, .main {
     padding: 15px;
     margin: 15px;
   }
-  h1, h2 {
+  h1, h2, h3 {
     max-width: 600px;
     padding: 0 10px 20px;
     text-align: center;
     cursor: default;
+    color: rgba(0,0,0,0.75);
   }
   h1 {
     font-weight: 900;
@@ -84,8 +88,17 @@ html, body, #root, .main {
 
 .container {
   max-width: 1170px;
-  padding: 15px;
+  padding: 6px;
   margin: 0  auto;
+}
+
+.poll-view {
+  display: flex;
+  justify-content: center;
+  > * {
+    display: flex;
+    padding-bottom: 20px;
+  }
 }
 
 .md-toolbar--action-right{
@@ -99,6 +112,7 @@ html, body, #root, .main {
 }
 
 .btn-list {
+  width: 100%;
   max-width: 600px;
   margin: auto auto;
 }
@@ -146,7 +160,7 @@ html, body, #root, .main {
   align-items: center;
   margin: 5px 0;
   >* {
-  margin: 0 5px;
+  margin: 0 3px;
   }
 }
 
