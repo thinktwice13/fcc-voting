@@ -10,7 +10,7 @@ export default () => (
       target="_blank"
     />
     <div>
-      {"Created by thinktwice13 for "}
+      {"Created by Mario K for "}
       <span>
         <a
           href="https://www.freecodecamp.org/"

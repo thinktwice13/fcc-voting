@@ -6,27 +6,48 @@ import * as actions from "../actions"
 import { withRouter } from "react-router-dom"
 import FormField from "./FormField"
 import Button from "react-md/lib/Buttons"
-import { validateUrl } from "../utils/helpers"
+import {
+  validateUrl,
+  validateNewPoll,
+  validateOption,
+  normalize
+} from "../utils/validate"
 import FocusContainer from "react-md/lib/Helpers/FocusContainer"
 
 const renderOptions = ({ fields }) => {
   return (
     <div>
       {fields.map((option, i) => (
-        <Field key={option} name={option} type="text" component={FormField} />
+        <Field
+          key={option}
+          name={option}
+          type="text"
+          component={FormField}
+          validate={validateOption}
+          normalize={normalize}
+        />
       ))}
     </div>
   )
 }
 
 let PollNew = ({ auth, formValues, submitPoll, history, resetPollForm }) => {
+  //TODO use redux validation instead
+  const vals = formValues
+  //anything entered turns cancel button into reset button
+  const showReset = vals
+  //valid title makes the rest of the poll visible
+  const validTitle =
+    vals && vals.title && vals.title.length > 0 && vals.title.length <= 56
+  //gets value from redux-form 'valid' prop
+  const validForm = validTitle && vals.options && vals.options.length > 2
+
   if (!auth) {
     history.push("/")
   }
 
   const pollSubmit = ev => {
     ev.preventDefault()
-    const vals = formValues
     submitPoll(
       {
         ...vals,
@@ -60,8 +81,7 @@ let PollNew = ({ auth, formValues, submitPoll, history, resetPollForm }) => {
           <Button raised primary label="Reset" onClick={resetPollForm} />
 
           {/* Needs title, at least two options and valid or empty info URL */}
-          {vals.options &&
-          vals.options.length > 2 && (
+          {validForm && (
             <Button secondary type="submit" raised label="Submit" />
           )}
         </div>
@@ -84,9 +104,10 @@ let PollNew = ({ auth, formValues, submitPoll, history, resetPollForm }) => {
             size="title"
             placeholder="Poll Title"
             type="text"
+            normalize={normalize}
             component={FormField}
           />
-          {formValues && (
+          {vals && (
             <div>
               <div className="poll-info">
                 <h5 className="md-headline md-font-semibold">
@@ -95,7 +116,13 @@ let PollNew = ({ auth, formValues, submitPoll, history, resetPollForm }) => {
                   }{" "}
                   :
                 </h5>
-                <Field name="info" type="text" component={FormField} />
+                <Field
+                  name="info"
+                  type="text"
+                  normalize={normalize}
+                  warn={validateUrl}
+                  component={FormField}
+                />
               </div>
               <div>
                 <h4 className="md-display-2 md-font-semibold">Options</h4>
@@ -114,29 +141,6 @@ let PollNew = ({ auth, formValues, submitPoll, history, resetPollForm }) => {
   )
 }
 
-const validate = vals => {
-  const errors = {}
-
-  /* Only allow one empty option. If there are no empty options, create one at the end of the array */
-  vals.options = vals.options || [""]
-  const i = vals.options.findIndex(opt => !opt)
-  vals.options = vals.options.filter(opt => !!opt)
-  if (i > -1) {
-    vals.options.splice(i, 0, "")
-  } else {
-    vals.options.push("")
-  }
-
-  /* validate URLs in info field */
-  if (vals.info) {
-    if (!validateUrl(vals.info)) {
-      errors.info = "Invalid URL"
-    }
-  }
-
-  return errors
-}
-
 PollNew = connect(
   state => ({
     formValues: state.form.newPollForm && state.form.newPollForm.values,
@@ -147,6 +151,6 @@ PollNew = connect(
 
 export default reduxForm({
   form: "newPollForm",
-  validate,
+  validate: validateNewPoll,
   destroyOnUnmount: false
 })(PollNew)
