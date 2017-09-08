@@ -7,7 +7,6 @@
   "license": "MIT",
   "engines": {
     "npm": "5.3.x",
-    "yarn": "0.28.x",
     "node": "8.4.x"
   },
   "dependencies": {
@@ -27,6 +26,7 @@
     "nodemon": "^1.11.0"
   },
   "scripts": {
+    "deps": "npm install && cd client && npm install && cd ..",
     "server": "nodemon index",
     "client": "npm run start --prefix client",
     "start": "node index",

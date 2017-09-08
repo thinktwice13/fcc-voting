@@ -7,7 +7,6 @@ import { validateOption, normalize } from "../utils/validate"
 
 let PollOptionNew = props => {
   let formData = props.newOption && props.newOption.trim()
-
   return (
     <form onSubmit={props.handleSubmit(() => props.onOptionSubmit(formData))}>
       {props.canAddOption && (

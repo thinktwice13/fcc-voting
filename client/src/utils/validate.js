@@ -1,4 +1,4 @@
-export const normalize = val => (val === " " ? "" : val)
+export const normalize = val => (val && val.trim() === "" ? "" : val)
 
 export const validateNewPoll = vals => {
   let errors = {}
