@@ -44,7 +44,7 @@ export default props => {
         )
       })}
       <PollOptionNew
-        onOptionSubmit={onOptionSubmit}
+        onOptionSubmit={val => val && onOptionSubmit}
         canAddOption={canAddOption}
       />
     </div>
