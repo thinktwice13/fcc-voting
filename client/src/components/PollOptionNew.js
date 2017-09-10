@@ -5,36 +5,35 @@ import FormField from "./FormField"
 import Button from "react-md/lib/Buttons/Button"
 import { validateOption, normalize } from "../utils/validate"
 
-let PollOptionNew = props => {
-  let formData = props.newOption && props.newOption.trim()
-  return (
-    <form onSubmit={props.handleSubmit(() => props.onOptionSubmit(formData))}>
-      {props.canAddOption && (
-        <div className="new-opt">
-          <Field
-            name="newOption"
-            type="text"
-            label="New Option"
-            normalize={normalize}
-            validate={validateOption}
-            component={FormField}
-            optionLabels={props.optionLabels}
-          />
-          <Button
-            className="btn-wide"
-            style={{
-              visibility: props.dirty && props.valid ? "visible" : "hidden"
-            }}
-            raised
-            primary
-            type="submit"
-            label="Submit"
-          />
-        </div>
-      )}
-    </form>
-  )
-}
+let PollOptionNew = props => (
+  <form
+    onSubmit={props.handleSubmit(() => props.onOptionSubmit(props.newOption))}
+  >
+    {props.canAddOption && (
+      <div className="new-opt">
+        <Field
+          name="newOption"
+          type="text"
+          label="New Option"
+          normalize={normalize}
+          validate={validateOption}
+          component={FormField}
+          optionLabels={props.optionLabels}
+        />
+        <Button
+          className="btn-wide"
+          style={{
+            visibility: props.dirty && props.valid ? "visible" : "hidden"
+          }}
+          raised
+          primary
+          type="submit"
+          label="Submit"
+        />
+      </div>
+    )}
+  </form>
+)
 
 const selector = formValueSelector("newOptionForm")
 
@@ -44,9 +43,7 @@ PollOptionNew = reduxForm({
 
 PollOptionNew = connect(state => ({
   newOption: selector(state, "newOption"),
-  optionLabels: state.details.options.map(
-    opt => opt.label && opt.label.toLowerCase()
-  )
+  optionLabels: state.details.options.map(opt => opt.label && opt.label)
 }))(PollOptionNew)
 
 export default PollOptionNew

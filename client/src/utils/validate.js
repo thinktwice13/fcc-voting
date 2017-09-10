@@ -24,8 +24,9 @@ export const validateNewPoll = vals => {
   return errors
 }
 
-export const validateOption = (val, allVals, { optionLabels }) => {
+export const validateOption = (value, allVals, { optionLabels }) => {
   const opts = optionLabels || []
+  const val = value && value.toUpperCase().trim()
   return val && val.length > 56
     ? "Must be 56 characters or less"
     : opts.includes(val) ? "Already exists" : undefined

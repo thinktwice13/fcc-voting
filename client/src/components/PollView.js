@@ -72,7 +72,7 @@ class PollView extends React.Component {
               onVote={setVote}
               onOptionRemove={this.handleOptionRemove}
               options={details.options}
-              onOptionSubmit={text => submitOption(pollId, text)}
+              onOptionSubmit={text => !!text && submitOption(pollId, text)}
               canAddOption={canAddOption}
             />
           </div>

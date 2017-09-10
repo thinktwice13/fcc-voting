@@ -20,7 +20,7 @@ export default ({
   size,
   input,
   label,
-  meta: { visited, touched, error, warning }
+  meta: { visited, touched, dirty, error, warning }
 }) => {
   const formAlert = <FormInfo error={error} warning={warning} />
   return (
@@ -33,7 +33,7 @@ export default ({
         label={label}
         className="md-cell md-cell--bottom"
       />
-      {((error && visited) || (warning && touched)) && formAlert}
+      {((error && (visited || dirty)) || (warning && touched)) && formAlert}
     </div>
   )
 }
