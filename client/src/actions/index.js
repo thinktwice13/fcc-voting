@@ -38,16 +38,17 @@ export const submitPoll = (values, history) => async dispatch => {
     payload: res.data
   })
   //reset polls list view to avoid seeing 'no polls' error before fetching
-  dispatch({ type: RESET_ME })
+  // dispatch({ type: RESET_ME })
   history.push("/polls")
 }
 
 export const submitOption = (pollId, label) => async dispatch => {
-  dispatch({ type: LOADING }) 
+  dispatch({ type: LOADING })
   const res = await axios.put("/api/polls/" + pollId, { label })
+  dispatch(reset("newOptionForm"))
   dispatch({
     type: SUBMIT_OPTION,
-    payload: res.data
+    payload: { pollId, option: res.data }
   })
   dispatch(reset("newOptionForm"))
 }

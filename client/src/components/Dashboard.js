@@ -19,7 +19,8 @@ const NewPollBtn = () => (
 
 class Dashboard extends React.Component {
   componentDidMount() {
-    this.props.fetchPolls()
+    console.log("Polls", this.props.polls)
+    // this.props.fetchPolls()
   }
   render() {
     if (!this.props.user || !this.props.polls) {

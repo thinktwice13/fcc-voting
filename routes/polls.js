@@ -23,7 +23,7 @@ module.exports = app => {
       infoUrl: req.body.infoUrl,
       options: req.body.options.map(label => {
         return {
-          label,
+          label: label.toUpperCase(),
           author: req.user.id,
           voters: []
         }
@@ -44,7 +44,7 @@ module.exports = app => {
       {
         $push: {
           options: {
-            label: req.body.label,
+            label: req.body.label.toUpperCase(),
             author: req.user._id,
             voters: []
           }

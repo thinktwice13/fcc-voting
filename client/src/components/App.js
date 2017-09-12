@@ -10,8 +10,9 @@ import PollNew from "./PollNew"
 import Footer from "./Footer"
 
 class App extends React.Component {
-  componentDidMount() {
-    this.props.fetchUser()
+  async componentDidMount() {
+    await this.props.fetchUser()
+    await this.props.fetchPolls()
   }
   render() {
     return (
