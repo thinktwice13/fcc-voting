@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+- '8'
+branches:
+  only:
+  - master
+  - dev
+deploy:
+  provider: heroku
+  api_key:
+    secure: c1SyP1gxOHtdKhHkJ7RsRX1Yi1cP++0VWME6sY8oBWsWWy8GMrLDmre5bfxMoaROAioEsDdQjCo7r0SKiHyq95iAHKWokQJ4MwiOpZ/c6iqFQLrD61UQ6Q/gHPCwxvP0pPE1/aKv0pluHDAGmPe2MSYTHVrRGWuHpWTcRlicL7M+3KgrPmuXz8sDEbgh4Z5mhwH/23BlLPusqW1dIg8IHtuUXUJFJwY+Iv8oofWS1AdEeWg9kr8D3SYqcQZYjdo1GDlV/37A2q4n2PMWqTVEvDJITbidu2spH9DXIV3ah5yyRd7ZDgkNlbs6c68Smu4f9AF4kT+HfG2zzWED7azBltZS4YTh+LvCAxsNNPswcjpVsuMh7A1wvHCAukwn+SA+jIXf5StqsMvLiFlu9/W7s2Thl692a3i4JVzsDYVFk5sdPjBAm1UNf9kKan17/Z0fBcejWioqCXgkzuJAjRkO25KBe7kZOAR+a+aPRaH9AwkDzh4uw1oPgm58ETxAMK5KfNf/TkjFJuyGaWVOFacCRtjyx40gwqFL2Z4Ng2tibsWgD05RZC8fouAGuIxEutqVs3ILyhCqcvWo3t76lNOy6dQbVO4DnoA4rVlaLoknoWcwxcmJoCHGblzctbxmpJ3mDZWtXnJUVuFSw3m741TnOAKIUrQzwo1eHIO5B1Xr6Dc=
+  app: obscure-crag-96570
+  on: master
+cache:
+  directories:
+  - node_modules
+  - client/node_modules
