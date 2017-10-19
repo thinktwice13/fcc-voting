@@ -16,7 +16,7 @@ export default (state = null, action) => {
     case SUBMIT_POLL:
       return [action.payload, ...state.slice()]
     case DELETE_POLL:
-      //get index of the poll to be deleted
+      // Get index of the poll to be deleted
       const i = state.findIndex(poll => poll._id === action.payload)
       return [...state.slice(0, i), ...state.slice(i + 1)]
     case SET_VOTE:
@@ -24,7 +24,6 @@ export default (state = null, action) => {
     case REMOVE_OPTION:
       return removeOption(state, action.payload)
     case SUBMIT_OPTION:
-      return addOption(state, action.payload)
     default:
       return state
   }

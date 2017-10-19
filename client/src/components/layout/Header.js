@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { connect } from "react-redux"
-import { Loader } from "./helpers"
+import Loader from "./Loader"
 import Toolbar from "react-md/lib/Toolbars"
 import Button from "react-md/lib/Buttons"
 
@@ -16,13 +16,7 @@ const Header = ({ user, loading }) => {
   }
 
   const titleRedirect = () => (
-    <Link
-      to="/polls"
-      style={{
-        textDecoration: "none",
-        fontWeight: "900"
-      }}
-    >
+    <Link to="/polls" className="titleLink">
       FCC Voting App
     </Link>
   )
@@ -36,8 +30,4 @@ const Header = ({ user, loading }) => {
   )
 }
 
-const mapStateToProps = ({ loading, user }) => {
-  return { loading, user }
-}
-
-export default connect(mapStateToProps)(Header)
+export default connect(({ loading, user }) => ({ loading, user }))(Header)

@@ -18,24 +18,22 @@ import {
   REMOVE_OPTION
 } from "./types"
 
-//TODO handle errors!!!!!!!!!
+//TODO handle errors
 
 export const fetchUser = () => async dispatch => {
   dispatch({ type: LOADING })
-  const res = await axios.get("/api/user")
   dispatch({
     type: FETCH_USER,
-    payload: res.data
+    payload: (await axios.get("/api/user")).data
   })
 }
 
 export const submitPoll = (values, history) => async dispatch => {
   dispatch({ type: LOADING })
-  const res = await axios.post("/api/polls", values)
   dispatch(reset("newPollForm"))
   dispatch({
     type: SUBMIT_POLL,
-    payload: res.data
+    payload: (await axios.post("/api/polls", values)).data
   })
   //reset polls list view to avoid seeing 'no polls' error before fetching
   // dispatch({ type: RESET_ME })
@@ -44,11 +42,13 @@ export const submitPoll = (values, history) => async dispatch => {
 
 export const submitOption = (pollId, label) => async dispatch => {
   dispatch({ type: LOADING })
-  const res = await axios.put("/api/polls/" + pollId, { label })
   dispatch(reset("newOptionForm"))
   dispatch({
     type: SUBMIT_OPTION,
-    payload: { pollId, option: res.data }
+    payload: {
+      pollId,
+      option: (await axios.put("/api/polls/" + pollId, { label })).data
+    }
   })
   dispatch(reset("newOptionForm"))
 }
@@ -66,10 +66,9 @@ export const removeOption = optionId => async dispatch => {
 
 export const fetchPolls = () => async dispatch => {
   dispatch({ type: LOADING })
-  const res = await axios.get("/api/polls")
   dispatch({
     type: FETCH_POLLS,
-    payload: res.data
+    payload: (await axios.get("/api/polls")).data
   })
 }
 
@@ -86,10 +85,9 @@ export const deletePoll = pollId => async dispatch => {
 
 export const fetchDetails = pollId => async dispatch => {
   dispatch({ type: LOADING })
-  const res = await axios.get("/api/polls/view/" + pollId)
   dispatch({
     type: FETCH_DETAILS,
-    payload: res.data
+    payload: (await axios.get("/api/polls/view/" + pollId)).data
   })
 }
 

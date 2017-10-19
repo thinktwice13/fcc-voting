@@ -1,10 +1,10 @@
 import React from "react"
-import { FILTER_OPTIONS, SORT_OPTIONS } from "../utils/constants"
+import { connect } from "react-redux"
+import * as actions from "../actions"
 import Button from "react-md/lib/Buttons/Button"
 import SelectField from "react-md/lib/SelectFields"
 import TextField from "react-md/lib/TextFields"
-import { connect } from "react-redux"
-import * as actions from "../actions"
+import { FILTER_OPTIONS, SORT_OPTIONS } from "../utils/constants"
 
 const FilterBtns = ({ filter, onFilter }) => (
   <div className="flex-nowrap">
@@ -51,7 +51,7 @@ const SearchInput = props => (
 )
 
 const PollFilters = props => {
-  // show sort button and search input to all users, but show filter buttons only to authenticated users
+  // Show sort button and search input to all users, but show filter buttons only to authenticated users
   return (
     <div className="flex-wrap sticky-filters">
       {props.auth && (

@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 import * as actions from "../actions"
 import { Doughnut } from "react-chartjs-2"
 import { CHART_COLORS as backgroundColor } from "../utils/constants"
-import PollOptionList from "./PollOptionList"
+import PollOptionList from "../components/PollOptionList"
 import { withRouter } from "react-router-dom"
 import { fetchDetails } from "../actions/index"
 
@@ -19,7 +19,7 @@ const Chart = ({ options }) => {
 
 const PollView = props => {
   const handleOptionRemove = optionId => {
-    //delete entire poll when removing last option
+    // When removing last poll option, delete poll and redirect to Dashboard
     if (props.details.options.length === 1) {
       props.deletePoll(props.details._id)
       props.history.push("/polls")
@@ -27,14 +27,19 @@ const PollView = props => {
   }
 
   const { details, user, setVote, submitOption, match } = props
+
+  /* 
+    FIXME
+    Show error page for non-existant polls
+    */
   if (!user || !details) {
     return null
   }
 
   const pollId = match.params.id
-  //determine if active poll has at least one vote
+  // Determine if active poll has at least one vote
   const isVotedOn = !!details.options.find(opt => opt.voters.includes(user._id))
-  // non-owners can only add one option
+  // Non-owners can only add one option
   const canAddOption =
     user &&
     user.auth &&

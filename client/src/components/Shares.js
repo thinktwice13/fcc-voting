@@ -7,6 +7,7 @@ import {
 } from "react-social"
 import Button from "react-md/lib/Buttons"
 
+// Social and share buttons
 export default class extends React.Component {
   constructor(props) {
     super(props)
@@ -21,7 +22,7 @@ export default class extends React.Component {
   handleBlur = () => this.setState({ visible: false })
 
   render() {
-    //shared poll view URL
+    // Assign shared poll view URL
     const url = window.location.origin + "/polls/view/" + this.props.poll
 
     return (

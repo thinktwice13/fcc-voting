@@ -4,16 +4,23 @@ import { Field, FieldArray, reduxForm } from "redux-form"
 import { connect } from "react-redux"
 import * as actions from "../actions"
 import { withRouter } from "react-router-dom"
-import FormField from "./FormField"
+import FormField from "../components/FormField"
 import Button from "react-md/lib/Buttons"
+import FocusContainer from "react-md/lib/Helpers/FocusContainer"
+import withAuth from "../components/hocs/withAuth"
 import {
   validateUrl,
   validateNewPoll,
   validateOption,
   normalize
 } from "../utils/validate"
-import FocusContainer from "react-md/lib/Helpers/FocusContainer"
 
+/*
+New poll form page.
+Form is valid if title and >= 2 options entered
+*/
+
+// Dynamically render array of option fields depending on empty or repeated user entries
 const renderOptions = ({ fields }) => {
   return (
     <div>
@@ -37,9 +44,13 @@ let PollNew = ({ auth, formValues, submitPoll, history, resetPollForm }) => {
   //valid title makes the rest of the poll visible
   const validTitle =
     vals && vals.title && vals.title.length > 0 && vals.title.length <= 56
-  //gets value from redux-form 'valid' prop
+  // Get value from redux-form 'valid' prop
   const validForm = validTitle && vals.options && vals.options.length > 2
 
+  /*
+  Redirect to Home if unathenticated user tries to navigate here
+  TODO replace with HoC
+  */
   if (!auth) {
     history.push("/")
   }
@@ -56,10 +67,15 @@ let PollNew = ({ auth, formValues, submitPoll, history, resetPollForm }) => {
     )
   }
 
+  /* 
+  Dynamically render CANCEL, RESET and SUBMIT buttons.
+  Show CANCEL only if all fields are empty. Otherwise show RESET.
+  Show SUBMIT button only for valid forms
+  */
   const renderActionBtns = () => {
     const vals = formValues
 
-    //if all fields are empty, show only cancel button
+    // Cancel button condition
     if (!vals) {
       return (
         <Link to="/polls">
@@ -67,24 +83,21 @@ let PollNew = ({ auth, formValues, submitPoll, history, resetPollForm }) => {
         </Link>
       )
     }
-    //if anying entered, show reset button
-    if (vals) {
-      return (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between"
-          }}
-        >
-          <Button raised primary label="Reset" onClick={resetPollForm} />
 
-          {/* Needs title, at least two options and valid or empty info URL */}
-          {validForm && (
-            <Button secondary type="submit" raised label="Submit" />
-          )}
-        </div>
-      )
-    }
+    // SUBMIT and/or RESET button condition
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between"
+        }}
+      >
+        <Button raised primary label="Reset" onClick={resetPollForm} />
+
+        {/* Needs title, at least two options and valid or empty info URL */}
+        {validForm && <Button secondary type="submit" raised label="Submit" />}
+      </div>
+    )
   }
 
   return (
@@ -151,4 +164,4 @@ export default reduxForm({
   form: "newPollForm",
   validate: validateNewPoll,
   destroyOnUnmount: false
-})(PollNew)
+})(withAuth(PollNew))

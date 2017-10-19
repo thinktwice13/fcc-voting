@@ -1,13 +1,13 @@
 import React from "react"
 import { BrowserRouter, Route } from "react-router-dom"
 import { connect } from "react-redux"
-import * as actions from "../actions"
-import Header from "./Header"
-import { Landing } from "./helpers"
-import Dashboard from "./Dashboard"
-import PollView from "./PollView"
-import PollNew from "./PollNew"
-import Footer from "./Footer"
+import { fetchUser, fetchPolls } from "../actions"
+import Header from "./layout/Header"
+import Footer from "./layout/Footer"
+import Landing from "../pages/Landing"
+import Dashboard from "../pages/Dashboard"
+import PollView from "../pages/PollView"
+import PollNew from "../pages/PollNew"
 
 class App extends React.Component {
   async componentDidMount() {
@@ -37,4 +37,4 @@ class App extends React.Component {
   }
 }
 
-export default connect(null, actions)(App)
+export default connect(null, { fetchUser, fetchPolls })(App)

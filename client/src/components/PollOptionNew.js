@@ -37,6 +37,7 @@ let PollOptionNew = props => (
 
 const selector = formValueSelector("newOptionForm")
 
+// Run new poll option through redux-form
 PollOptionNew = reduxForm({
   form: "newOptionForm"
 })(PollOptionNew)

@@ -7,8 +7,6 @@ const OptionSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User"
   },
-  //TODO change to Obj
-  //TODO default empty array of strings
   voters: [String]
 })
 
@@ -25,7 +23,6 @@ module.exports = mongoose.model(
     createdAt: {
       type: Date,
       default: Date.now
-    },
-    lastVoted: Date
+    }
   })
 )
