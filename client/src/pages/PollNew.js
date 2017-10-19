@@ -7,6 +7,7 @@ import { withRouter } from "react-router-dom"
 import FormField from "../components/FormField"
 import Button from "react-md/lib/Buttons"
 import FocusContainer from "react-md/lib/Helpers/FocusContainer"
+import withAuth from "../components/hocs/withAuth"
 import {
   validateUrl,
   validateNewPoll,
@@ -163,4 +164,4 @@ export default reduxForm({
   form: "newPollForm",
   validate: validateNewPoll,
   destroyOnUnmount: false
-})(PollNew)
+})(withAuth(PollNew))
