@@ -46,6 +46,7 @@ export default props => {
       <PollOptionNew
         onOptionSubmit={onOptionSubmit}
         canAddOption={canAddOption}
+        optionLabels={options.map(opt => opt.label)}
       />
     </div>
   )

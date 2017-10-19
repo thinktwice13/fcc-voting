@@ -74,22 +74,64 @@ export const getVisibleList = (userId, pollList, { filter, sort, search }) => {
   }
 }
 
-export const getUpdatedVote = ({ options }, { userId, optionId }) => {
+export const getUpdatedVote = (polls, { userId, optionId }) => {
+  let index = polls.findIndex(poll =>
+    poll.options.find(opt => opt._id === optionId)
+  )
+
+  let options = polls[index].options.slice()
   //determine old vote index
   const oldVote = options.findIndex(opt => opt.voters.includes(userId))
   //determinte new vote index
   const newVote = options.findIndex(opt => opt._id === optionId)
-  //copy array
-  const updated = options.slice()
   //remove old Vote if exists
   if (oldVote >= 0) {
-    updated[oldVote].voters = updated[oldVote].voters.filter(
+    options[oldVote].voters = options[oldVote].voters.filter(
       voter => voter !== userId
     )
   }
   //add new vote
-  updated[newVote].voters.push(userId)
-  return updated
+  options[newVote].voters.push(userId)
+  const updated = polls.splice()
+  // updated.splice(index, 1, { ...polls[index], options })
+  return [
+    ...polls.slice(0, index),
+    { ...polls[index], options },
+    ...polls.slice(index + 1)
+  ]
+}
+
+export const removeOption = (polls, optionId) => {
+  const updatedPollIndex = polls.findIndex(poll =>
+    poll.options.find(opt => opt._id === optionId)
+  )
+
+  let updatedOptions = polls[updatedPollIndex].options.slice()
+  updatedOptions.splice(
+    updatedOptions.findIndex(opt => opt._id === optionId),
+    1
+  )
+  const updatedPoll = { ...polls[updatedPollIndex], options: updatedOptions }
+
+  return [
+    ...polls.slice(0, updatedPollIndex),
+    updatedPoll,
+    ...polls.slice(updatedPollIndex + 1)
+  ]
+}
+export const addOption = (polls, { pollId, option }) => {
+  const updatedPollIndex = polls.findIndex(poll => poll._id === pollId)
+  let updatedOptions = polls[updatedPollIndex].options.slice()
+  updatedOptions.push(option)
+  const updatedPoll = {
+    ...polls[updatedPollIndex],
+    options: updatedOptions
+  }
+  return [
+    ...polls.slice(0, updatedPollIndex),
+    updatedPoll,
+    ...polls.slice(updatedPollIndex + 1)
+  ]
 }
 
 export const getPollResults = (userId, polls) => {
