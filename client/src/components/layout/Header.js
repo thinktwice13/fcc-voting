@@ -9,9 +9,9 @@ const Header = ({ user, loading }) => {
   const renderLoginBtn = () => {
     if (!user) {
     } else if (!user.auth) {
-      return <Button href="/auth/google" flat label="Login with Google" />
+      return <Button href="/auth/google" flat children="Login with Google" />
     } else {
-      return <Button href="/api/logout" flat label="Logout" />
+      return <Button href="/api/logout" flat children="Logout" />
     }
   }
 

@@ -79,7 +79,7 @@ let PollNew = ({ auth, formValues, submitPoll, history, resetPollForm }) => {
     if (!vals) {
       return (
         <Link to="/polls">
-          <Button raised primary label="Cancel" />
+          <Button raised primary children="Cancel" />
         </Link>
       )
     }
@@ -92,10 +92,10 @@ let PollNew = ({ auth, formValues, submitPoll, history, resetPollForm }) => {
           justifyContent: "space-between"
         }}
       >
-        <Button raised primary label="Reset" onClick={resetPollForm} />
+        <Button raised primary children="Reset" onClick={resetPollForm} />
 
         {/* Needs title, at least two options and valid or empty info URL */}
-        {validForm && <Button secondary type="submit" raised label="Submit" />}
+        {validForm && <Button secondary type="submit" raised children="Submit" />}
       </div>
     )
   }

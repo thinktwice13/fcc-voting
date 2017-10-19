@@ -8,8 +8,6 @@ import CardActions from "react-md/lib/Cards/CardActions"
 import { withRouter } from "react-router-dom"
 import Button from "react-md/lib/Buttons"
 import Shares from "./Shares"
-import { Route, Link } from "react-router-dom"
-import PollView from "../pages/PollView"
 
 const PollCard = props => {
   // Show additional info and delete button only to poll owners

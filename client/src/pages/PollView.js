@@ -5,7 +5,6 @@ import { Doughnut } from "react-chartjs-2"
 import { CHART_COLORS as backgroundColor } from "../utils/constants"
 import PollOptionList from "../components/PollOptionList"
 import { withRouter } from "react-router-dom"
-import { fetchDetails } from "../actions/index"
 
 const Chart = ({ options }) => {
   const data = {

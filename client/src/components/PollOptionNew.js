@@ -28,7 +28,7 @@ let PollOptionNew = props => (
           raised
           primary
           type="submit"
-          label="Submit"
+          children="Submit"
         />
       </div>
     )}

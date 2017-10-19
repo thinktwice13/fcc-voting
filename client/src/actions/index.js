@@ -60,8 +60,9 @@ export const removeOption = optionId => async dispatch => {
   })
 
   dispatch({ type: LOADING })
-  const res = await axios.put("/api/options/" + optionId)
-  !res.error ? dispatch({ type: SUCCESS }) : null
+  await axios
+    .put("/api/options/" + optionId)
+    .then(() => dispatch({ type: SUCCESS }))
 }
 
 export const fetchPolls = () => async dispatch => {
@@ -79,8 +80,9 @@ export const deletePoll = pollId => async dispatch => {
   })
 
   dispatch({ type: LOADING })
-  const res = await axios.delete("/api/polls/" + pollId)
-  !res.error ? dispatch({ type: SUCCESS }) : null
+  await axios
+    .delete("/api/polls/" + pollId)
+    .then(() => dispatch({ type: SUCCESS }))
 }
 
 export const fetchDetails = pollId => async dispatch => {
@@ -98,8 +100,9 @@ export const setVote = (optionId, userId) => async dispatch => {
   })
 
   dispatch({ type: LOADING })
-  const res = await axios.put("/api/vote/" + optionId)
-  !res.error ? dispatch({ type: SUCCESS }) : null
+  await axios
+    .put("/api/vote/" + optionId)
+    .then(() => dispatch({ type: SUCCESS }))
 }
 
 //UI actions

@@ -17,48 +17,42 @@ const NewPollBtn = () => (
   </Link>
 )
 
-class Dashboard extends React.Component {
-  componentDidMount() {
-    console.log("Polls", this.props.polls)
-    // this.props.fetchPolls()
+const Dashboard = props => {
+  if (!props.user || !props.polls) {
+    return null
   }
-  render() {
-    if (!this.props.user || !this.props.polls) {
-      return null
-    }
 
-    /* 
-    Show error page if no polls fetched
-    TODO replace with HoC
-    */
-    if (this.props.polls.length === 0) {
-      return (
-        <div>
-          <ErrorPage
-            title="No polls found :("
-            msg="Add one yourself or try again later"
-          />
-          {this.props.user.auth && <NewPollBtn />}
-        </div>
-      )
-    }
-
+  /* 
+  Show error page if no polls fetched
+  TODO replace with HoC
+  */
+  if (props.polls.length === 0) {
     return (
-      <div className="container">
-        <div className="md-toolbar-relative">
-          {this.props.user.auth && <NewPollBtn />}
-          <PollFilters />
-          {this.props.user.auth && (
-            <PollResults
-              user={this.props.user}
-              results={getPollResults(this.props.user._id, this.props.polls)}
-            />
-          )}
-          <PollList />
-        </div>
+      <div>
+        <ErrorPage
+          title="No polls found :("
+          msg="Add one yourself or try again later"
+        />
+        {props.user.auth && <NewPollBtn />}
       </div>
     )
   }
+
+  return (
+    <div className="container">
+      <div className="md-toolbar-relative">
+        {props.user.auth && <NewPollBtn />}
+        <PollFilters />
+        {props.user.auth && (
+          <PollResults
+            user={props.user}
+            results={getPollResults(props.user._id, props.polls)}
+          />
+        )}
+        <PollList />
+      </div>
+    </div>
+  )
 }
 
 export default connect(({ user, polls }) => ({ user, polls }), { fetchPolls })(

@@ -8,7 +8,7 @@ export default () => (
     <Paper zDepth={4}>
       <h1>FCC VOTING APP</h1>
       <Link to="/polls">
-        <Button primary raised label="GET STARTED" />
+        <Button primary raised children="GET STARTED" />
       </Link>
     </Paper>
   </div>

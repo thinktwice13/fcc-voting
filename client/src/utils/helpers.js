@@ -92,8 +92,6 @@ export const getUpdatedVote = (polls, { userId, optionId }) => {
   }
   //add new vote
   options[newVote].voters.push(userId)
-  const updated = polls.splice()
-  // updated.splice(index, 1, { ...polls[index], options })
   return [
     ...polls.slice(0, index),
     { ...polls[index], options },

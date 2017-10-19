@@ -37,7 +37,7 @@ export default props => {
               primary
               onClick={onVote.bind(null, opt._id, userId)}
               disabled={isCurrentVote}
-              label={opt.label}
+              children={opt.label}
               className="btn-wide"
             />
           </div>

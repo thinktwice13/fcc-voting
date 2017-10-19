@@ -3,7 +3,6 @@ import {
   TwitterButton,
   RedditButton,
   PocketButton,
-  EmailButton
 } from "react-social"
 import Button from "react-md/lib/Buttons"
 
@@ -68,17 +67,6 @@ export default class extends React.Component {
             </div>
             <i className="md-icon fa fa-get-pocket" />
           </PocketButton>
-
-          {/*<EmailButton
-            url={url}
-            type="button"
-            className="md-inline-block md-btn md-btn--icon md-pointer--hover"
-          >
-            <div className="md-ink-container">
-              <span aria-hidden="true" />
-            </div>
-            <i className="md-icon fa fa-envelope" />
-          </EmailButton>*/}
         </span>
       </div>
     )
