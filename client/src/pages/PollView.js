@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 import * as actions from "../actions"
 import { Doughnut } from "react-chartjs-2"
 import { CHART_COLORS as backgroundColor } from "../utils/constants"
-import PollOptionList from "./PollOptionList"
+import PollOptionList from "../components/PollOptionList"
 import { withRouter } from "react-router-dom"
 
 const Chart = ({ options }) => {
@@ -87,6 +87,6 @@ class PollView extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({ user: state.user, details: state.details })
+const mapStateToProps = ({ user, details }) => ({ user, details })
 
 export default connect(mapStateToProps, actions)(withRouter(PollView))

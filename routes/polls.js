@@ -83,7 +83,7 @@ module.exports = app => {
   app.put("/api/vote/:optionId", async (req, res) => {
     const userId = req.user
       ? req.user.id
-      : await require("./utils")(req.headers)
+      : await require("../services/headers")(req.headers)
     try {
       //remove old vote
       await Poll.update(

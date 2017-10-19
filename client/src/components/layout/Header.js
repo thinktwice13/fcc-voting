@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { connect } from "react-redux"
-import { Loader } from "./helpers"
+import Loader from "./Loader"
 import Toolbar from "react-md/lib/Toolbars"
 import Button from "react-md/lib/Buttons"
 

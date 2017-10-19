@@ -19,8 +19,8 @@ module.exports = app => {
   app.get("/api/user", async (req, res) => {
     //if there is no authenticated user, identify user with req headers
     if (!req.user) {
-      //if there is no authenticated user sent qith request
-      const id = await require("./utils")(req.headers)
+      //if there is no authenticated user sent with request
+      const id = await require("../services/headers")(req.headers)
       res.send({ _id: id, auth: false })
     } else {
       //if logged in user found

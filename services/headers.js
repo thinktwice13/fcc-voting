@@ -1,10 +1,13 @@
 const publicip = require("public-ip")
 
+// Identify unauthenticated users by request headers
+
 module.exports = headers => {
   const combineHeaders = ip => {
     return (ip +
       headers["accept-language"].split(".")[0] +
-      headers["user-agent"].split(/[\(\)]/)[1]).replace(/[^0-9a-z]/gi, "")
+      headers["user-agent"].split(/[\(\)]/)[1]
+    ).replace(/[^0-9a-z]/gi, "")
   }
   return publicip
     .v4()

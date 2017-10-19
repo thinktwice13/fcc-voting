@@ -4,15 +4,15 @@ import { Field, FieldArray, reduxForm } from "redux-form"
 import { connect } from "react-redux"
 import * as actions from "../actions"
 import { withRouter } from "react-router-dom"
-import FormField from "./FormField"
+import FormField from "../components/FormField"
 import Button from "react-md/lib/Buttons"
+import FocusContainer from "react-md/lib/Helpers/FocusContainer"
 import {
   validateUrl,
   validateNewPoll,
   validateOption,
   normalize
 } from "../utils/validate"
-import FocusContainer from "react-md/lib/Helpers/FocusContainer"
 
 const renderOptions = ({ fields }) => {
   return (
