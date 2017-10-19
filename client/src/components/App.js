@@ -1,7 +1,7 @@
 import React from "react"
 import { BrowserRouter, Route } from "react-router-dom"
 import { connect } from "react-redux"
-import * as actions from "../actions"
+import { fetchUser } from "../actions"
 import Header from "./layout/Header"
 import Footer from "./layout/Footer"
 import Landing from "../pages/Landing"
@@ -36,4 +36,4 @@ class App extends React.Component {
   }
 }
 
-export default connect(null, actions)(App)
+export default connect(null, { fetchUser })(App)

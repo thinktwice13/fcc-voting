@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { connect } from "react-redux"
-import * as actions from "../actions"
+import { fetchPolls } from "../actions"
 import ErrorPage from "./ErrorPage"
 import PollFilters from "../components/PollFilters"
 import PollResults from "../components/PollResults"
@@ -26,6 +26,10 @@ class Dashboard extends React.Component {
       return null
     }
 
+    /* 
+    Show error page if no polls fetched
+    TODO replace with HoC
+    */
     if (this.props.polls.length === 0) {
       return (
         <div>
@@ -56,6 +60,6 @@ class Dashboard extends React.Component {
   }
 }
 
-export default connect(({ user, polls }) => ({ user, polls }), {
-  fetchPolls: actions.fetchPolls
-})(Dashboard)
+export default connect(({ user, polls }) => ({ user, polls }), { fetchPolls })(
+  Dashboard
+)

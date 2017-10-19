@@ -16,13 +16,7 @@ const Header = ({ user, loading }) => {
   }
 
   const titleRedirect = () => (
-    <Link
-      to="/polls"
-      style={{
-        textDecoration: "none",
-        fontWeight: "900"
-      }}
-    >
+    <Link to="/polls" className="titleLink">
       FCC Voting App
     </Link>
   )
@@ -36,8 +30,4 @@ const Header = ({ user, loading }) => {
   )
 }
 
-const mapStateToProps = ({ loading, user }) => {
-  return { loading, user }
-}
-
-export default connect(mapStateToProps)(Header)
+export default connect(({ loading, user }) => ({ loading, user }))(Header)

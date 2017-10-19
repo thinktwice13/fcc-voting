@@ -22,12 +22,12 @@ class PollView extends React.Component {
   }
 
   componentWillUnmount() {
-    //clear global state from this poll's details
+    // Clear global state from this poll's details
     this.props.resetDetails()
   }
 
   handleOptionRemove = optionId => {
-    //delete entire poll when removing last option
+    // When removing last poll option, delete poll and redirect to Dashboard
     const props = this.props
     if (props.details.options.length === 1) {
       props.deletePoll(props.details._id)
@@ -37,17 +37,21 @@ class PollView extends React.Component {
 
   render() {
     const { details, user, setVote, submitOption, match } = this.props
+    const pollId = match.params.id
 
+    /* 
+    FIXME
+    Show error page for non-existant polls
+    */
     if (!user || !details) {
       return null
     }
 
-    const pollId = match.params.id
-    //determine if active poll has at least one vote
+    // Determine if active poll has at least one vote
     const isVotedOn = !!details.options.find(opt =>
       opt.voters.includes(user._id)
     )
-    // non-owners can only add one option
+    // Non-owners can only add one option
     const canAddOption =
       user &&
       user.auth &&
@@ -87,6 +91,6 @@ class PollView extends React.Component {
   }
 }
 
-const mapStateToProps = ({ user, details }) => ({ user, details })
-
-export default connect(mapStateToProps, actions)(withRouter(PollView))
+export default connect(({ user, details }) => ({ user, details }), actions)(
+  withRouter(PollView)
+)

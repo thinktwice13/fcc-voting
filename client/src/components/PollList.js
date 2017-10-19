@@ -10,7 +10,7 @@ import Button from "react-md/lib/Buttons"
 import Shares from "./Shares"
 
 const PollCard = props => {
-  //only show additional info and delete button to poll owners
+  // Show additional info and delete button only to poll owners
   const isOwner = props.poll.owner === props.user._id
 
   return (
@@ -43,7 +43,7 @@ const PollCard = props => {
 }
 
 const PollList = props => {
-  //filter list by visibility settings
+  // Filter list by visibility settings
   const visibleList = getVisibleList(
     props.user._id,
     props.polls,
@@ -64,10 +64,10 @@ const PollList = props => {
   )
 }
 
-const mapStateToProps = state => ({
-  user: state.user,
-  polls: state.polls,
-  visibility: state.visibility
+const mapStateToProps = ({ user, polls, visibility }) => ({
+  user,
+  polls,
+  visibility
 })
 
 export default connect(mapStateToProps, actions)(withRouter(PollList))
