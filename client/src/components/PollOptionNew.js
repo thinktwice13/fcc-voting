@@ -42,9 +42,9 @@ PollOptionNew = reduxForm({
   form: "newOptionForm"
 })(PollOptionNew)
 
-PollOptionNew = connect(state => ({
+PollOptionNew = connect((state, ownProps) => ({
   newOption: selector(state, "newOption"),
-  optionLabels: state.details.options.map(opt => opt.label && opt.label)
+  optionLabels: ownProps.optionLabels
 }))(PollOptionNew)
 
 export default PollOptionNew

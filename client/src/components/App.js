@@ -1,7 +1,7 @@
 import React from "react"
 import { BrowserRouter, Route } from "react-router-dom"
 import { connect } from "react-redux"
-import { fetchUser } from "../actions"
+import { fetchUser, fetchPolls } from "../actions"
 import Header from "./layout/Header"
 import Footer from "./layout/Footer"
 import Landing from "../pages/Landing"
@@ -10,8 +10,9 @@ import PollView from "../pages/PollView"
 import PollNew from "../pages/PollNew"
 
 class App extends React.Component {
-  componentDidMount() {
-    this.props.fetchUser()
+  async componentDidMount() {
+    await this.props.fetchUser()
+    await this.props.fetchPolls()
   }
   render() {
     return (
@@ -36,4 +37,4 @@ class App extends React.Component {
   }
 }
 
-export default connect(null, { fetchUser })(App)
+export default connect(null, { fetchUser, fetchPolls })(App)
