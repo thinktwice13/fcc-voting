@@ -30,10 +30,11 @@ const FilterBtns = ({ filter, onFilter }) => (
 
 const SortBtn = ({ sort, onSort }) => (
   <SelectField
+    stripActiveItem
     id="selectSortDirection"
-    placeholder={sort}
+    value={sort}
     // list all sort options except the current one
-    menuItems={Object.values(SORT_OPTIONS).filter(val => val !== sort)}
+    menuItems={Object.values(SORT_OPTIONS)}
     position={SelectField.Positions.BELOW}
     className="md-cell"
     onChange={onSort}
