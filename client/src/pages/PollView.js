@@ -4,7 +4,7 @@ import * as actions from "../actions"
 import { Doughnut } from "react-chartjs-2"
 import { CHART_COLORS as backgroundColor } from "../utils/constants"
 import PollOptionList from "../components/PollOptionList"
-import { withRouter } from "react-router-dom"
+import { withIdMatch } from "../components/HoCs"
 
 const Chart = ({ options }) => {
   const data = {
@@ -87,4 +87,4 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps, actions)(withRouter(PollView))
+export default connect(mapStateToProps, actions)(withIdMatch(PollView))
