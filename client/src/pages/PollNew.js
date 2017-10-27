@@ -7,7 +7,7 @@ import { withRouter } from "react-router-dom"
 import FormField from "../components/FormField"
 import Button from "react-md/lib/Buttons"
 import FocusContainer from "react-md/lib/Helpers/FocusContainer"
-import withAuth from "../components/hocs/withAuth"
+import { unauthRedirect } from "../components/HoCs"
 import {
   validateUrl,
   validateNewPoll,
@@ -95,7 +95,9 @@ let PollNew = ({ auth, formValues, submitPoll, history, resetPollForm }) => {
         <Button raised primary children="Reset" onClick={resetPollForm} />
 
         {/* Needs title, at least two options and valid or empty info URL */}
-        {validForm && <Button secondary type="submit" raised children="Submit" />}
+        {validForm && (
+          <Button secondary type="submit" raised children="Submit" />
+        )}
       </div>
     )
   }
@@ -164,4 +166,4 @@ export default reduxForm({
   form: "newPollForm",
   validate: validateNewPoll,
   destroyOnUnmount: false
-})(withAuth(PollNew))
+})(unauthRedirect(PollNew))
