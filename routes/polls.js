@@ -13,10 +13,9 @@ module.exports = app => {
 
   //submit new poll
   app.post("/api/polls", requireLogin, (req, res) => {
-    const userId = req.user ? req.user.id : getUserHeaders()
-    //cpitalize first letter of the poll title
+    // Capitalize first letter of the poll title
     let title = req.body.title
-    title = title.split("")[0].toUpperCase() + title.slice(1)
+    title = title && title.split("")[0].toUpperCase() + title.slice(1)
     const poll = new Poll({
       title,
       owner: req.user.id,
@@ -66,18 +65,19 @@ module.exports = app => {
       { $pull: { options: { _id: req.params.optionId } } },
       err => {
         if (err) res.send(err)
-        res.send({})
+        res.send({ msg: "Poll option removed." })
       }
     )
   })
 
-  //get single poll details
-  app.get("/api/polls/view/:pollId", (req, res) => {
-    Poll.findById(req.params.pollId, (err, poll) => {
-      if (err) res.send(err)
-      else res.send(poll)
-    })
-  })
+  // Not needed anymore
+  // //get single poll details
+  // app.get("/api/polls/view/:pollId", (req, res) => {
+  //   Poll.findById(req.params.pollId, (err, poll) => {
+  //     if (err) res.send(err)
+  //     else res.send(poll)
+  //   })
+  // })
 
   //set new vote
   app.put("/api/vote/:optionId", async (req, res) => {
@@ -99,7 +99,7 @@ module.exports = app => {
     } catch (err) {
       console.log("Error updated votes: ", err)
     }
-    res.send({})
+    res.send({ msg: "Voted on " + req.params.optionId })
   })
 
   //delete poll
@@ -107,7 +107,7 @@ module.exports = app => {
     Poll.findByIdAndRemove(req.params.pollId, err => {
       if (err) res.send(err)
       //Poll deleted!
-      res.send({})
+      res.send({msg: `Poll ${req.params.pollId} deleted.`})
     })
   })
 }
