@@ -17,27 +17,29 @@ const Chart = ({ options }) => {
 }
 
 const PollView = props => {
+  const {
+    details,
+    user,
+    setVote,
+    submitOption,
+    deletePoll,
+    removeOption,
+    match,
+    history
+  } = props
+  const pollId = match.params.id
+
   const handleOptionRemove = optionId => {
     // When removing last poll option, delete poll and redirect to Dashboard
-    if (props.details.options.length === 1) {
-      props.deletePoll(props.details._id)
-      props.history.push("/polls")
-    } else props.removeOption(optionId)
+    if (details.options.length === 1) {
+      deletePoll(details._id)
+      history.push("/polls")
+    } else removeOption(optionId)
   }
 
-  const { details, user, setVote, submitOption, match } = props
-
-  /* 
-    FIXME
-    Show error page for non-existant polls
-    */
-  if (!user || !details) {
-    return null
-  }
-
-  const pollId = match.params.id
   // Determine if active poll has at least one vote
   const isVotedOn = !!details.options.find(opt => opt.voters.includes(user._id))
+
   // Non-owners can only add one option
   const canAddOption =
     user &&
@@ -77,14 +79,10 @@ const PollView = props => {
   )
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = ({ user, polls }, ownProps) => {
   const details =
-    state.polls &&
-    state.polls.find(poll => poll._id === ownProps.match.params.id)
-  return {
-    details,
-    user: state.user
-  }
+    polls && polls.find(poll => poll._id === ownProps.match.params.id)
+  return { details, user }
 }
 
 export default connect(mapStateToProps, actions)(withIdMatch(PollView))
