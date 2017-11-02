@@ -47,14 +47,7 @@ let PollNew = ({ auth, formValues, submitPoll, history, resetPollForm }) => {
   // Get value from redux-form 'valid' prop
   const validForm = validTitle && vals.options && vals.options.length > 2
 
-  /*
-  Redirect to Home if unathenticated user tries to navigate here
-  TODO replace with HoC
-  */
-  if (!auth) {
-    history.push("/")
-  }
-
+  // Submit poll action
   const pollSubmit = ev => {
     ev.preventDefault()
     submitPoll(

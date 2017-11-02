@@ -105,11 +105,7 @@ export const setVote = (optionId, userId) => async dispatch => {
     .then(() => dispatch({ type: SUCCESS }))
 }
 
-//UI actions
-
-export const resetDetails = () => dispatch => {
-  dispatch({ type: RESET_ME })
-}
+// UI ACTIONS (filter, sort, search, form reset)
 
 export const resetPollForm = () => dispatch => {
   dispatch({ type: RESET_POLL_FORM })
