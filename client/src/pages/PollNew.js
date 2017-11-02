@@ -41,7 +41,7 @@ const renderOptions = ({ fields }) => {
 let PollNew = ({ auth, formValues, submitPoll, history, resetPollForm }) => {
   //TODO use redux validation instead
   const vals = formValues
-  //valid title makes the rest of the poll visible
+  // Valid title makes the rest of the poll visible
   const validTitle =
     vals && vals.title && vals.title.length > 0 && vals.title.length <= 56
   // Get value from redux-form 'valid' prop
@@ -60,11 +60,11 @@ let PollNew = ({ auth, formValues, submitPoll, history, resetPollForm }) => {
     )
   }
 
-  /* 
-  Dynamically render CANCEL, RESET and SUBMIT buttons.
-  Show CANCEL only if all fields are empty. Otherwise show RESET.
-  Show SUBMIT button only for valid forms
-  */
+  /**
+   * Dynamically render CANCEL, RESET and SUBMIT buttons.
+   * Show CANCEL only if all fields are empty. Otherwise show RESET.
+   * Show SUBMIT button only for valid forms
+   */
   const renderActionBtns = () => {
     const vals = formValues
 
@@ -86,8 +86,6 @@ let PollNew = ({ auth, formValues, submitPoll, history, resetPollForm }) => {
         }}
       >
         <Button raised primary children="Reset" onClick={resetPollForm} />
-
-        {/* Needs title, at least two options and valid or empty info URL */}
         {validForm && (
           <Button secondary type="submit" raised children="Submit" />
         )}

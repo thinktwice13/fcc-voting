@@ -15,6 +15,16 @@ const getTopVoted = poll => {
   return top
 }
 
+/**
+ * Filters and sorts list of polls
+ * @param {string} userId
+ * @param {array} pollList - A full poll list
+ * @param {object} visibility - Current state of visibility properties
+ * @param {string} visibility.filter
+ * @param {string} visibility.sort
+ * @param {string} visibility.search
+ * @returns {array} filtered and sorted list
+ */
 export const getVisibleList = (userId, pollList, { filter, sort, search }) => {
   const { MY_POLLS, MY_VOTES, VOTE } = FILTER_OPTIONS
   const { NEWEST, OLDEST, MOST_VOTED, CLOSEST_VOTE } = SORT_OPTIONS
@@ -23,8 +33,6 @@ export const getVisibleList = (userId, pollList, { filter, sort, search }) => {
   //get poll titles found by fuzzy search if search phrase is not empty string
   let titles
   if (search.length > 0) {
-    //TODO remove all symbols frfom tested poll titiles
-    //TODO include options into search
     titles = Autocomplete.fuzzyFilter(list.map(poll => poll.title), search)
   }
 
@@ -74,6 +82,14 @@ export const getVisibleList = (userId, pollList, { filter, sort, search }) => {
   }
 }
 
+/**
+ * Update poll with a new vote
+ * @param {array} polls - Ful poll list
+ * @param {object} ids object
+ * @param {string} ids.userId
+ * @param {string} ids.optionId
+ * @returns {array} updated list of polls
+ */
 export const getUpdatedVote = (polls, { userId, optionId }) => {
   let index = polls.findIndex(poll =>
     poll.options.find(opt => opt._id === optionId)
@@ -99,6 +115,12 @@ export const getUpdatedVote = (polls, { userId, optionId }) => {
   ]
 }
 
+/**
+ * Remove option from poll
+ * @param {array} polls - Full poll list
+ * @param {string} optionId
+ * @returns {array} updated list of polls
+ */
 export const removeOption = (polls, optionId) => {
   const updatedPollIndex = polls.findIndex(poll =>
     poll.options.find(opt => opt._id === optionId)
@@ -117,6 +139,16 @@ export const removeOption = (polls, optionId) => {
     ...polls.slice(updatedPollIndex + 1)
   ]
 }
+
+/**
+ * Add new option to a poll
+ * @param {array} polls - Full poll list
+ * @param {object} contains pollId and option label
+ * @param {string} pollId
+ * @param {string} option - Option label
+ * @returns {array} updated list of polls
+ * 
+ */
 export const addOption = (polls, { pollId, option }) => {
   const updatedPollIndex = polls.findIndex(poll => poll._id === pollId)
   let updatedOptions = polls[updatedPollIndex].options.slice()
@@ -132,6 +164,12 @@ export const addOption = (polls, { pollId, option }) => {
   ]
 }
 
+/**
+ * Get summary results of user's polls
+ * @param {string} userId
+ * @param {array} polls - Full poll list
+ * @returns {object} contains myVotes, myPolls, myPollVotes
+ */
 export const getPollResults = (userId, polls) => {
   let myVotes = 0
   let myPolls = 0

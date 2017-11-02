@@ -11,8 +11,9 @@ import PollNew from "../pages/PollNew"
 
 class App extends React.Component {
   async componentDidMount() {
-    await this.props.fetchUser()
-    await this.props.fetchPolls()
+    // FIXME remove await ???
+    this.props.fetchUser()
+    this.props.fetchPolls()
   }
   render() {
     return (
