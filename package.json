@@ -29,16 +29,14 @@
     "nodemon": "^1.11.0"
   },
   "scripts": {
-    "dev": "concurrently \"yarn server\" \"yarn client\"",
+    "dev": "mocha --exit && concurrently \"yarn server\" \"yarn client\"",
     "server": "nodemon index",
     "client": "npm run start --prefix client",
     "start": "node index",
-    "test": "mocha --timeout 10000",
+    "test": "mocha --exit",
     "postinstall": "cd client && npm install && cd ..",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild":
+      "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
-  "cacheDirectories": [
-    "node_modules",
-    "client/node_modules"
-  ]
+  "cacheDirectories": ["node_modules", "client/node_modules"]
 }

@@ -3,7 +3,6 @@ process.env.NODE_ENV = "test"
 const mongoose = require("mongoose")
 const ObjectID = require("mongodb").ObjectID
 const chai = require("chai")
-
 const server = require("../index")
 const Poll = require("../models/Poll")
 const User = require("../models/User")
