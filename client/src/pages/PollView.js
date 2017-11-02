@@ -4,8 +4,7 @@ import * as actions from "../actions"
 import { Doughnut } from "react-chartjs-2"
 import { CHART_COLORS as backgroundColor } from "../utils/constants"
 import PollOptionList from "../components/PollOptionList"
-import { withIdMatch } from "../components/HoCs"
-import { removeOption } from "../actions/index"
+import { withIdMatch } from "../components/HoCs"moni
 
 const Chart = ({ options }) => {
   const data = {
