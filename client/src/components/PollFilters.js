@@ -41,13 +41,13 @@ const SortBtn = ({ sort, onSort }) => (
   />
 )
 
-const SearchInput = props => (
+const SearchInput = ({ onSearch, value }) => (
   <TextField
     id="searchPolls"
     placeholder="Search Polls"
     className="md-cell md-cell--right"
-    onChange={props.onSearch}
-    value={props.value}
+    onChange={onSearch}
+    value={value}
   />
 )
 
@@ -66,8 +66,11 @@ const PollFilters = props => {
   )
 }
 
-const mapStateToProps = ({ user, visibility: { filter, sort, search } }) => ({
-  auth: user.auth,
+const mapStateToProps = ({
+  user: { auth },
+  visibility: { filter, sort, search }
+}) => ({
+  auth,
   filter,
   sort,
   search
