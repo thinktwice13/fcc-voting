@@ -33,7 +33,6 @@ const SortBtn = ({ sort, onSort }) => (
     stripActiveItem
     id="selectSortDirection"
     value={sort}
-    // list all sort options except the current one
     menuItems={Object.values(SORT_OPTIONS)}
     position={SelectField.Positions.BELOW}
     className="md-cell"
@@ -51,8 +50,8 @@ const SearchInput = ({ onSearch, value }) => (
   />
 )
 
+// Show sort button and search input to all users, but show filter buttons only to authenticated users
 const PollFilters = props => {
-  // Show sort button and search input to all users, but show filter buttons only to authenticated users
   return (
     <div className="flex-wrap sticky-filters">
       {props.auth && (
