@@ -1,6 +1,5 @@
 export const LOADING = "LOADING"
 export const SUCCESS = "SUCCESS"
-export const RESET_ME = "RESET_DETAILS"
 export const RESET_POLL_FORM = "RESET_POLL_FORM"
 
 export const FETCH_USER = "FETCH_USER"
