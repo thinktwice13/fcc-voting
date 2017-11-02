@@ -3,8 +3,9 @@ import TextField from "react-md/lib/TextFields"
 import FontIcon from "react-md/lib/FontIcons"
 import IconSeparator from "react-md/lib/Helpers/IconSeparator"
 
+
+// Determine received form info (error or warning) and display with appropriate styling
 const FormInfo = ({ error, warning }) => {
-  // Determine received form info (error or warning) and display with appropriate styling
   const text = error || warning
   const type = error ? "error" : "warning"
   const color = { color: error ? "#c62828" : "#cddc39" }

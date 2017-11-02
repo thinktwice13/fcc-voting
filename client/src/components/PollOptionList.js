@@ -14,9 +14,8 @@ export default props => {
   return (
     <div className="btn-list">
       {options.map(opt => {
-        // Disable current user's vote button
+        // Disable current user's voted option button
         const isCurrentVote = opt.voters.includes(userId)
-        // TODO? users can remove options on their own polls and their custom options onother user's polls if they haven't been voted on yet
         const canRemoveOption = opt.author === userId
         return (
           <div key={opt._id} className="flex-options">

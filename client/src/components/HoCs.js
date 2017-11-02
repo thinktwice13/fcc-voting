@@ -3,6 +3,7 @@ import { connect } from "react-redux"
 import { Redirect } from "react-router-dom"
 import ErrorPage from "../pages/ErrorPage"
 
+// Returns passed component or null
 export const withAuth = ChildComponent =>
   connect(({ user }) => ({ user }))(
     props =>
@@ -11,6 +12,7 @@ export const withAuth = ChildComponent =>
         : null
   )
 
+// Returns passed component or redirects to homepage
 export const unauthRedirect = ChildComponent =>
   connect(({ user }) => ({ user }))(
     props =>
@@ -19,6 +21,7 @@ export const unauthRedirect = ChildComponent =>
         : <Redirect to="/" />
   )
 
+// Returns passed component or ErrorPage
 export const DashboardOrError = Dashboard => {
   const EnhancedComponent = props => {
     const { user, polls } = props
@@ -43,6 +46,7 @@ export const DashboardOrError = Dashboard => {
   return connect(mapStateToProps)(EnhancedComponent)
 }
 
+// Returns passed component if Id matches
 export const withIdMatch = PollView =>
   connect(({ polls }) => ({ polls }))(
     props =>

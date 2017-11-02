@@ -12,6 +12,7 @@ export const SORT_OPTIONS = {
   CLOSEST_VOTE: "CLOSEST VOTE"
 }
 
+// Colors used in poll charts
 export const CHART_COLORS = [
   "#f44336",
   "#ffc107",

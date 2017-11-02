@@ -18,7 +18,10 @@ import {
   REMOVE_OPTION
 } from "./types"
 
-//TODO handle errors
+/**
+ * ASYNC ACTIONS 
+ * UI changes that don't require database ID's don't wait for async actions to complete.
+ */
 
 export const fetchUser = () => async dispatch => {
   dispatch({ type: LOADING })
@@ -28,6 +31,7 @@ export const fetchUser = () => async dispatch => {
   })
 }
 
+// Use history param to redirect to /polls after new poll submit
 export const submitPoll = (values, history) => async dispatch => {
   dispatch({ type: LOADING })
   dispatch(reset("newPollForm"))
@@ -35,8 +39,6 @@ export const submitPoll = (values, history) => async dispatch => {
     type: SUBMIT_POLL,
     payload: (await axios.post("/api/polls", values)).data
   })
-  //reset polls list view to avoid seeing 'no polls' error before fetching
-  // dispatch({ type: RESET_ME })
   history.push("/polls")
 }
 
