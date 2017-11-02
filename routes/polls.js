@@ -7,7 +7,7 @@ module.exports = app => {
   app.get("/api/polls", (req, res) => {
     Poll.find({}, (err, list) => {
       if (err) res.send(err)
-      res.send(list)
+      else res.send(list)
     })
   })
 
@@ -32,7 +32,7 @@ module.exports = app => {
 
     poll.save(err => {
       if (err) res.status(422).send(err)
-      res.send(poll)
+      else res.send(poll)
     })
   })
 
@@ -53,34 +53,29 @@ module.exports = app => {
       { new: true },
       (err, poll) => {
         if (err) res.send(err)
-        const newOption = poll.options[poll.options.length - 1]
-        res.send(newOption)
+        else {
+          const newOption = poll.options[poll.options.length - 1]
+          res.send(newOption)
+        }
       }
     )
   })
 
-  //remove polloption
+  //remove poll option
   app.put("/api/options/:optionId", requireLogin, (req, res) => {
     Poll.findOneAndUpdate(
       { "options._id": req.params.optionId },
       { $pull: { options: { _id: req.params.optionId } } },
       err => {
         if (err) res.send(err)
-        res.send({})
+        else res.send({ msg: "Option removed.", id: req.params.optionId })
       }
     )
   })
 
-  //get single poll details
-  app.get("/api/polls/view/:pollId", (req, res) => {
-    Poll.findById(req.params.pollId, (err, poll) => {
-      if (err) res.send(err)
-      else res.send(poll)
-    })
-  })
-
   //set new vote
   app.put("/api/vote/:optionId", async (req, res) => {
+    let updatedPoll = null
     const userId = req.user
       ? req.user.id
       : await require("../services/headers")(req.headers)
@@ -92,22 +87,22 @@ module.exports = app => {
       )
 
       //add new vote
-      await Poll.update(
+      updatedPoll = await Poll.findOneAndUpdate(
         { "options._id": req.params.optionId },
-        { $push: { "options.$.voters": userId } }
+        { $push: { "options.$.voters": userId } },
+        { new: true }
       )
     } catch (err) {
       console.log("Error updated votes: ", err)
     }
-    res.send({})
+    res.send({ msg: "Voted", updatedPoll })
   })
 
   //delete poll
   app.delete("/api/polls/:pollId", requireLogin, (req, res) => {
     Poll.findByIdAndRemove(req.params.pollId, err => {
       if (err) res.send(err)
-      //Poll deleted!
-      res.send({})
+      else res.send({ msg: "Poll deleted.", id: req.params.pollId })
     })
   })
 }

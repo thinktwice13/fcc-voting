@@ -9,7 +9,10 @@ require("./services/passport")
 const app = express()
 const PORT = process.env.PORT || 3003
 
-mongoose.connect(keys.MONGO_URL, { useMongoClient: true })
+mongoose.connect(
+  app.settings.env === "test"
+    ? require("./config/test").MONGO_URL
+    : keys.MONGO_URL, { useMongoClient: true })
 
 //app config
 app.use(body.json())
@@ -37,6 +40,5 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.listen(PORT, console.log(`Server started on port ${PORT}.`))
-
 
 module.exports = app
