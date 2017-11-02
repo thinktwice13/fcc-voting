@@ -1,6 +1,8 @@
 language: node_js
 node_js:
 - '8'
+services: mongodb
+# before_script: sudo /etc/init.d/mongod start
 branches:
   only:
   - master

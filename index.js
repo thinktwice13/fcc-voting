@@ -1,33 +1,34 @@
 const express = require("express")
-const mongoose = require("mongoose")
 const body = require("body-parser")
-const keys = require("./config/keys")
+const mongoose = require("mongoose")
 const cookieSession = require("cookie-session")
 const passport = require("passport")
-require("./services/passport")
 
 const app = express()
-const PORT = process.env.PORT || 3003
 
+const PORT = process.env.PORT || 3003
 mongoose.connect(
-  app.settings.env === "test"
-    ? require("./config/test").MONGO_URL
-    : keys.MONGO_URL, { useMongoClient: true })
+  process.env.NODE_ENV === "test"
+    ? "mongodb://localhost/test"
+    : require("./config/keys").MONGO_URL,
+  { useMongoClient: true }
+)
 
 //app config
 app.use(body.json())
-app.use(
-  cookieSession({
-    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
-    keys: [keys.cookieKey]
-  })
-)
-app.use(passport.initialize())
-app.use(passport.session())
+if (process.env.NODE_ENV !== "test") {
+  require("./services/passport")
+  app.use(
+    cookieSession({
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+      keys: [require("./config/keys").cookieKey]
+    })
+  )
+  app.use(passport.initialize())
+  app.use(passport.session())
+}
 
-const router = require("./routes")
-console.log(router)
-router(app)
+require("./routes")(app)
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"))
