@@ -4,7 +4,8 @@ A Voting app built as a part of [freeCodeCamp](https://www.freecodecamp.org/chal
 <br>
 Built with **Node**, **Express**, **Mongo** and **React** with **Redux**.
 ## Installation
-- Clone the repo.
+- Clone the repo
+- Install dependencies: `npm install`
 - Run development mode: `npm run dev`
 - Open on `http://localhost:3000/`
 ## Live
